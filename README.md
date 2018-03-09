@@ -6,6 +6,7 @@ React date time picker and input component
 ### Installation
 ```
 npm install @opuscapita/react-datetime
+npm install moment
 ```
 
 ### Demo
@@ -21,9 +22,15 @@ Also you need to configure sass loader, since all the styles are in sass format.
 * Add [SASS loader](https://github.com/webpack-contrib/sass-loader) to support importing of SASS styles.
 
 ### API
-| Prop name                | Type             | Default                                  | Description                              |
-| ------------------------ | ---------------- | ---------------------------------------- | ---------------------------------------- |
-| propName                 | string           |                                          | Describe the prop here                   |
+| Prop name                | Type     | Default | Description                               |
+| ------------------------ | ---------| ------- | ----------------------------------------- |
+| value                    | string   | ''      | Current date value                        |
+| onChange                 | function |         | onChange callback returns new date string |
+| locale                   | string   | 'en'    | Locale                                    |
+| dateFormat               | string   | 'L'     | Date format as MomentJS [format](https://momentjs.com/docs/#/displaying/format) |
+| inputProps               | object   |         | Custom props for the input field          |
+| inputRef                 | function |         | Input component ref function              |
+| disabled                 | boolean  |         | Is component disabled                     |
 
 ### Code example
 ```jsx

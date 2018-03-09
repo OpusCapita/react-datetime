@@ -12,7 +12,7 @@ export default class DateInput extends React.Component {
   static propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
-    language: PropTypes.string,
+    locale: PropTypes.string,
     dateFormat: PropTypes.string,
     inputProps: PropTypes.object,
     inputRef: PropTypes.func,
@@ -22,7 +22,7 @@ export default class DateInput extends React.Component {
   static defaultProps = {
     value: '',
     dateFormat: 'L',
-    language: 'en',
+    locale: 'en',
     onChange() {},
     inputProps: {},
     inputRef() {},
@@ -140,7 +140,7 @@ export default class DateInput extends React.Component {
   render() {
     /* eslint-disable no-unused-vars */
     const {
-      language,
+      locale,
       dateFormat,
       value,
       onChange,
@@ -189,7 +189,7 @@ export default class DateInput extends React.Component {
               onDayClick={this.handleDayClick}
               selectedDays={day => DateUtils.isSameDay(this.state.selectedDay, day)}
               localeUtils={this.localeUtils}
-              locale={language}
+              locale={locale}
               {...otherProps}
             />
           </div>
