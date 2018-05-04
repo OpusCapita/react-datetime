@@ -34,7 +34,7 @@ export default class DateInput extends React.Component {
 
   static defaultProps = {
     value: '',
-    dateFormat: 'M/D/YYYY',
+    dateFormat: 'L',
     locale: 'en',
     onChange() {
     },
