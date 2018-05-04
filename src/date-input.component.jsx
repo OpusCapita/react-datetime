@@ -142,7 +142,7 @@ export default class DateInput extends React.Component {
   handleInputChange = (e) => {
     const inputDate = e.target.value;
     this.setState({ inputDate });
-
+    console.log(this.props.dateFormat);
     // This get fired only if the new date is valid in given format
     if (moment(inputDate, this.props.dateFormat).isValid() && this.isValidFormat(inputDate)) {
       this.setState({
@@ -202,8 +202,9 @@ export default class DateInput extends React.Component {
    * @returns {boolean}
    */
   isValidFormat = (date) => {
-    let pattern = /^\d{1,2}[.\-/]{1}\d{1,2}[.\-/]{1}\d{4}$/;
-    if (this.props.time) pattern = /^\d{1,2}[.\-/]{1}\d{1,2}[.\-/]{1}\d{4}\s{0,1}\d{0,2}([:.])?\d{0,2}$/;
+    console.log('testing', date);
+    let pattern = /^\d{1,4}[.\-/]{1}\d{1,2}[.\-/]{1}\d{1,4}$/;
+    if (this.props.time) pattern = /^\d{1,4}[.\-/]{1}\d{1,2}[.\-/]{1}\d{1,4}\s{0,1}\d{0,2}([:.])?\d{0,2}$/;
     return pattern.test(date.trim());
   };
 
