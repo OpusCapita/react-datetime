@@ -25,7 +25,6 @@ export default class DateInput extends React.Component {
     onChange: PropTypes.func,
     locale: PropTypes.string,
     dateFormat: PropTypes.string,
-    modelDateFormat: PropTypes.string,
     inputProps: PropTypes.object,
     inputRef: PropTypes.func,
     disabled: PropTypes.bool,
@@ -36,7 +35,6 @@ export default class DateInput extends React.Component {
   static defaultProps = {
     value: '',
     dateFormat: 'M/D/YYYY',
-    modelDateFormat: undefined,
     locale: 'en',
     onChange() {
     },
