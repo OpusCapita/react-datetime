@@ -1,3 +1,2 @@
 export DateInput from './date-input.component';
-
-// export { DateInput };
+export DateTimeInput from './date-time-input.component';
