@@ -12,7 +12,7 @@ import 'react-day-picker/lib/style.css';
 import TimePicker from './time-picker/time-picker.component';
 import './date-input.scss';
 
-// Date formats used by the component (mainly by getDate)
+// Date formats used by the component (mainly by the getDate method)
 const FORMATS = {
   UTC: 'UTC',
   PRETTY_DATE: 'PRETTY_DATE',
@@ -111,7 +111,7 @@ export default class DateInput extends React.Component {
     this.setState({
       showOverlay: true,
     }, () => {
-      // Delays the execution so that dayPicker opens before selecting a day
+      // Delays the execution so that the dayPicker opens before selecting a day
       setTimeout(() => {
         if (!showOverlay && this.dayPicker && selectedDay) this.dayPicker.showMonth(selectedDay);
       });
@@ -136,13 +136,13 @@ export default class DateInput extends React.Component {
   };
 
   /**
-   * Handles input change, checks validity and updates model value and a day picker
+   * Handles input change, checks validity and updates model value and the day picker
    * @param e {event}
    */
   handleInputChange = (e) => {
     const inputDate = e.target.value;
     this.setState({ inputDate });
-    // This get fired only if the new date is valid in given format
+    // This fires only if the new date is valid in given format
     if (moment(inputDate, this.props.dateFormat).isValid() && this.isValidFormat(inputDate)) {
       this.setState({
         selectedDay: this.getDate(inputDate, FORMATS.DATE_OBJECT),
