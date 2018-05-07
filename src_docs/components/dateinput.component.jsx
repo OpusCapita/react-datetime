@@ -5,7 +5,7 @@ export default class ComponentView extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      date: '',
+      date: '2013-04-22T09:52:41.4Z',
     };
   }
 
@@ -13,16 +13,17 @@ export default class ComponentView extends React.PureComponent {
     this.setState({
       date,
     });
-  }
+  };
 
   render() {
     return (
-      <div style={{ margin: '20px 20px 0 20px', width: '200px' }}>
+      <div style={{ margin: '20px 20px 0 20px', width: '250px' }}>
         <h4>DateInput</h4>
         <DateInput
           value={this.state.date}
           onChange={this.handleDateChange}
         />
+        <p>Value: <code>{this.state.date || 'null'}</code></p>
       </div>
     );
   }
