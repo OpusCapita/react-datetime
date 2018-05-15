@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## next
+* Bug fix: state will now get updated upon external change
 
 ## 2.0.1
 * Changed moment parsing from local time to UTC format

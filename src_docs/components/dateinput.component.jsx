@@ -5,9 +5,17 @@ export default class ComponentView extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      date: '2013-04-22T00:00:00.000Z',
+      date: null,
     };
   }
+
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.setState({
+        date: '2013-04-22T00:00:00.000Z',
+      });
+    }, 3000);
+  };
 
   handleDateChange = (date) => {
     this.setState({
