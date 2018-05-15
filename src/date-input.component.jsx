@@ -67,6 +67,19 @@ export default class DateInput extends React.Component {
     this.dayPicker = null;
     this.clickedInside = false;
     this.clickTimeout = null;
+    this.focused = false;
+  }
+
+  // TODO: change this one to getDerivedStateFromProps ASAP
+  componentWillReceiveProps(nextProps) {
+    // If value changes when input is blurred
+    if (!this.focused && nextProps.value && this.props.value !== nextProps.value) {
+      const momentDate = moment.utc(nextProps.value, moment.ISO_8601);
+      this.setState({
+        selectedDay: this.getDate(momentDate, FORMATS.DATE_OBJECT),
+        inputDate: this.getDate(momentDate, FORMATS.PRETTY_DATE, nextProps.dateFormat),
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -108,6 +121,8 @@ export default class DateInput extends React.Component {
 
   handleInputFocus = (e) => {
     const { showOverlay, selectedDay } = this.state;
+    this.focused = true;
+
     this.setState({
       showOverlay: true,
     }, () => {
@@ -123,6 +138,8 @@ export default class DateInput extends React.Component {
 
   handleInputBlur = (e) => {
     const showOverlay = this.clickedInside;
+    this.focused = false;
+
     this.setState({
       showOverlay,
     });
