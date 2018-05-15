@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## next
+
+## 2.0.2
 * Bug fix: state will now get updated upon external change
 
 ## 2.0.1
