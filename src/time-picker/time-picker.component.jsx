@@ -44,7 +44,7 @@ export default class TimePicker extends React.Component {
     this.setState({ [e.target.name]: e.target.value }, () => {
       // Makes a moment object out of value (date), rewrites hour/minute values
       // and calls props.onChange
-      const momentDate = moment(this.props.value);
+      const momentDate = moment.utc(this.props.value);
       momentDate.set('hour', this.state.hour);
       momentDate.set('minute', this.state.minute);
 
@@ -86,7 +86,7 @@ export default class TimePicker extends React.Component {
    */
   getHours = (date) => {
     if (!date) return 0;
-    return moment(date).hours();
+    return moment.utc(date).hours();
   };
 
   /**
@@ -96,7 +96,7 @@ export default class TimePicker extends React.Component {
    */
   getMinutes = (date) => {
     if (!date) return 0;
-    return moment(date).minutes();
+    return moment.utc(date).minutes();
   };
 
   render() {

@@ -49,7 +49,7 @@ export default class DateInput extends React.Component {
   constructor(props) {
     super(props);
 
-    const momentDate = moment(props.value, moment.ISO_8601);
+    const momentDate = moment.utc(props.value, moment.ISO_8601);
 
     this.state = {
       showOverlay: false,
@@ -82,7 +82,7 @@ export default class DateInput extends React.Component {
    * * @returns {string, date}
    */
   getDate = (date, type, dateFormat = this.props.dateFormat) => {
-    const momentDate = typeof date === 'string' ? moment(date, dateFormat) : date;
+    const momentDate = typeof date === 'string' ? moment.utc(date, dateFormat) : date;
     const removeInvisibleChars = str => str.replace(/\u200E/g, '');
     if (!momentDate.isValid() || !date) return '';
 
@@ -90,7 +90,7 @@ export default class DateInput extends React.Component {
       case FORMATS.PRETTY_DATE:
         return removeInvisibleChars(momentDate.format(dateFormat));
       case FORMATS.UTC:
-        return removeInvisibleChars(momentDate.format());
+        return removeInvisibleChars(momentDate.toISOString());
       case FORMATS.DATE_OBJECT:
       default:
         return momentDate.toDate();
@@ -143,7 +143,7 @@ export default class DateInput extends React.Component {
     const inputDate = e.target.value;
     this.setState({ inputDate });
     // This fires only if the new date is valid in given format
-    if (moment(inputDate, this.props.dateFormat).isValid() && this.isValidFormat(inputDate)) {
+    if (moment.utc(inputDate, this.props.dateFormat).isValid() && this.isValidFormat(inputDate)) {
       this.setState({
         selectedDay: this.getDate(inputDate, FORMATS.DATE_OBJECT),
       }, () => {
@@ -163,7 +163,7 @@ export default class DateInput extends React.Component {
    * @param day {date}
    */
   handleDayClick = (day) => {
-    const momentObj = moment(day);
+    const momentObj = moment.utc(day);
     this.setState({
       selectedDay: day,
       showOverlay: false,
@@ -179,7 +179,7 @@ export default class DateInput extends React.Component {
    * @param date
    */
   handleTimePickerChange = (date) => {
-    const momentDate = moment(date);
+    const momentDate = moment.utc(date);
     this.setState({
       inputDate: this.getDate(momentDate, FORMATS.PRETTY_DATE),
     }, () => {

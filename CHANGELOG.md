@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## next
+* Changed moment parsing from local time to UTC format
 
 ## 2.0.0
 * Component will now automatically format the input value keeping the (model) value in props and using its own state to display the formatted visible value
