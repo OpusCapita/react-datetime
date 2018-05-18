@@ -10,6 +10,7 @@ import 'react-day-picker/lib/style.css';
 
 // App imports
 import TimePicker from './time-picker/time-picker.component';
+import YearMonthPicker from './year-month-picker/year-month-picker.component';
 import './date-input.scss';
 
 // Date formats used by the component (mainly by the getDate method)
@@ -205,6 +206,16 @@ export default class DateInput extends React.Component {
   };
 
   /**
+   * Handles year-month picker (select boxes) change
+   * @param date
+   */
+  handleYearMonthChange = (val) => {
+    this.setState({
+      dayPickerVisibleMonth: val,
+    });
+  };
+
+  /**
    * Checks whether or not selected day is same as a day in calendar
    * Used by dayPicker
    * @param day {date}
@@ -274,8 +285,15 @@ export default class DateInput extends React.Component {
             onDayClick={this.handleDayClick}
             selectedDays={this.isSameDay}
             localeUtils={this.localeUtils}
+            month={this.state.dayPickerVisibleMonth}
             showWeekNumbers={showWeekNumbers}
             locale={locale}
+            captionElement={({ date }) => (
+              <YearMonthPicker
+                date={date}
+                onChange={this.handleYearMonthChange}
+              />
+            )}
             {...otherProps}
           />
 
