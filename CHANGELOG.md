@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## next
+* Year/month select boxes to browse through month views in day picker
 
 ## 2.0.2
 * Bug fix: state will now get updated upon external change
