@@ -51,6 +51,7 @@ export default class DateInput extends React.Component {
     super(props);
 
     const momentDate = moment.utc(props.value, moment.ISO_8601);
+    this.onDocumentClick = this.onDocumentClick.bind(this);
 
     this.state = {
       showOverlay: false,
@@ -64,10 +65,9 @@ export default class DateInput extends React.Component {
       LocaleUtils,
       { getFirstDayOfWeek: () => moment.localeData().firstDayOfWeek() },
     );
+
     this.input = null;
     this.dayPicker = null;
-    this.clickedInside = false;
-    this.clickTimeout = null;
     this.focused = false;
   }
 
@@ -84,8 +84,24 @@ export default class DateInput extends React.Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.clickTimeout);
+    document.removeEventListener('click', this.onDocumentClick);
   }
+
+  /**
+   * Fires every time dayPicker is open and document is clicked
+   * @param e
+   */
+  onDocumentClick = (e) => {
+    if (!this.calendarContainer) return;
+
+    // Closes overlay if user clicks outside the calendar (and input field)
+    if (!this.calendarContainer.contains(e.target) &&
+      this.state.showOverlay &&
+      e.target !== this.input) {
+      this.closeOverlay();
+      document.removeEventListener('click', this.onDocumentClick);
+    }
+  };
 
   /**
    * Converts given date into wanted type (string/date object)
@@ -111,15 +127,10 @@ export default class DateInput extends React.Component {
     }
   };
 
-  handleContainerMouseDown = () => {
-    this.clickedInside = true;
-    // The input's onBlur method is called from a queue right after onMouseDown event.
-    // setTimeout adds another callback in the queue, but is called later than onBlur event
-    this.clickTimeout = setTimeout(() => {
-      this.clickedInside = false;
-    }, 0);
-  };
-
+  /**
+   * Handles input focus event. Shows an overlay and adds an click event listener to the document
+   * @param e
+   */
   handleInputFocus = (e) => {
     const { showOverlay, selectedDay } = this.state;
     this.focused = true;
@@ -132,25 +143,24 @@ export default class DateInput extends React.Component {
         if (!showOverlay && this.dayPicker && selectedDay) this.dayPicker.showMonth(selectedDay);
       });
     });
-    if (this.props.inputProps.onFocus) {
-      this.props.inputProps.onFocus(e);
-    }
+
+    document.addEventListener('click', this.onDocumentClick);
+    if (this.props.inputProps.onFocus) this.props.inputProps.onFocus(e);
   };
 
-  handleInputBlur = (e) => {
-    const showOverlay = this.clickedInside;
+  /**
+   * Closes overlay. Called from onDocumentClick.
+   * @param e
+   */
+  closeOverlay = (e) => {
     this.focused = false;
 
     this.setState({
-      showOverlay,
+      showOverlay: false,
+    }, () => {
+      if (this.state.showOverlay) this.input.focus();
+      if (this.props.inputProps.onBlur) this.props.inputProps.onBlur(e);
     });
-    // Force input's focus if blur event was caused by clicking on the calendar
-    if (showOverlay) {
-      this.input.focus();
-    }
-    if (this.props.inputProps.onBlur) {
-      this.props.inputProps.onBlur(e);
-    }
   };
 
   /**
@@ -159,20 +169,22 @@ export default class DateInput extends React.Component {
    */
   handleInputChange = (e) => {
     const inputDate = e.target.value;
+    const { dateFormat, inputProps, onChange } = this.props;
+
     this.setState({ inputDate });
     // This fires only if the new date is valid in given format
-    if (moment.utc(inputDate, this.props.dateFormat).isValid() && this.isValidFormat(inputDate)) {
+    if (moment.utc(inputDate, dateFormat).isValid() && this.isValidFormat(inputDate)) {
       this.setState({
         selectedDay: this.getDate(inputDate, FORMATS.DATE_OBJECT),
       }, () => {
         // If dayPicker is open, we will show the correct month
         if (this.dayPicker) this.dayPicker.showMonth(this.state.selectedDay);
       });
-      this.props.onChange(this.getDate(inputDate, FORMATS.UTC));
-      if (this.props.inputProps.onChange) this.props.inputProps.onChange(e);
+      onChange(this.getDate(inputDate, FORMATS.UTC));
+      if (inputProps.onChange) inputProps.onChange(e);
     } else {
       // If the value is invalid we reset the model value
-      this.props.onChange(null);
+      onChange(null);
     }
   };
 
@@ -269,14 +281,15 @@ export default class DateInput extends React.Component {
             {...inputProps}
             onChange={this.handleInputChange}
             onFocus={this.handleInputFocus}
-            onBlur={this.handleInputBlur}
           />
         </FormGroup>
         {this.state.showOverlay &&
         <div
-          onMouseDown={this.handleContainerMouseDown}
           role="presentation"
           className={`${classPrefix}-calendar`}
+          ref={(el) => {
+            this.calendarContainer = el;
+          }}
         >
           <DayPicker
             ref={(el) => {
