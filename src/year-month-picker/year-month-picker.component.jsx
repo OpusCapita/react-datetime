@@ -14,7 +14,7 @@ export default class YearMonthPicker extends React.Component {
   };
 
   static defaultProps = {
-    date: new Date(),
+    date: null,
   };
 
   constructor(props) {
