@@ -1,0 +1,17 @@
+.oc-year-month-picker-container.DayPicker-Caption {
+  $arrows-width: 25px;
+  $separator: 6px;
+  padding: 0;
+  min-width: 260px;
+
+  select {
+    display: inline-block;
+    width: calc(50% - #{$arrows-width} + (#{$separator} / 2));
+    padding: 6px;
+
+    &:first-of-type {
+      margin-right: 6px;
+    }
+
+  }
+}

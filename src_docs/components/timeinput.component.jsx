@@ -18,11 +18,12 @@ export default class ComponentView extends React.PureComponent {
   render() {
     return (
       <div style={{ margin: '20px 20px 0 20px', width: '250px' }}>
-        <h4>DateTimeInput</h4>
+        <h4>DateTimeInput (Finnish locale)</h4>
         <DateTime
           value={this.state.date}
           onChange={this.handleDateChange}
           time
+          locale="fi"
         />
         <p>Value: <code>{this.state.date || 'null'}</code></p>
       </div>

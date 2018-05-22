@@ -14,7 +14,7 @@ export default class ComponentView extends React.PureComponent {
       this.setState({
         date: '2013-04-22T00:00:00.000Z',
       });
-    }, 3000);
+    }, 1000);
   };
 
   handleDateChange = (date) => {
