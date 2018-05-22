@@ -246,6 +246,19 @@ export default class DateInput extends React.Component {
     return pattern.test(date.trim());
   };
 
+  /**
+   * Renders select boxes above the calendar
+   * @param date
+   * @returns {*}
+   */
+  renderCaptionElement = ({ date }) => (
+    <YearMonthPicker
+      date={date}
+      onChange={this.handleYearMonthChange}
+      locale={this.props.locale}
+    />
+  );
+
   render() {
     const classPrefix = 'oc-datetime';
     /* eslint-disable no-unused-vars */
@@ -301,12 +314,7 @@ export default class DateInput extends React.Component {
             month={this.state.dayPickerVisibleMonth}
             showWeekNumbers={showWeekNumbers}
             locale={locale}
-            captionElement={({ date }) => (
-              <YearMonthPicker
-                date={date}
-                onChange={this.handleYearMonthChange}
-              />
-            )}
+            captionElement={this.renderCaptionElement}
             {...otherProps}
           />
 

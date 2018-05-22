@@ -11,10 +11,12 @@ export default class YearMonthPicker extends React.Component {
   static propTypes = {
     date: PropTypes.instanceOf(Date),
     onChange: PropTypes.func.isRequired,
+    locale: PropTypes.string,
   };
 
   static defaultProps = {
     date: null,
+    locale: 'en',
   };
 
   constructor(props) {
@@ -26,7 +28,7 @@ export default class YearMonthPicker extends React.Component {
     const fromMonth = new Date(currentYear - 10, 0);
     const toMonth = new Date(currentYear + 10, 11);
 
-    this.months = LocaleUtils.getMonths();
+    this.months = LocaleUtils.getMonths(props.locale);
     for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
       this.years.push(i);
     }
