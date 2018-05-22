@@ -9,7 +9,7 @@ export default class DateTimeInput extends React.Component {
   };
 
   static defaultProps = {
-    dateFormat: undefined,
+    dateFormat: 'L LT',
   };
 
   render() {
