@@ -115,7 +115,6 @@ export default class DateInput extends React.Component {
     const momentDate = typeof date === 'string' ? moment.utc(date, dateFormat) : date;
     const removeInvisibleChars = str => str.replace(/\u200E/g, '');
     if (!momentDate.isValid() || !date) return '';
-
     switch (type) {
       case FORMATS.PRETTY_DATE:
         return removeInvisibleChars(momentDate.format(dateFormat));
@@ -235,6 +234,12 @@ export default class DateInput extends React.Component {
   isSameDay = day => DateUtils.isSameDay(this.state.selectedDay, day);
 
   /**
+   * Returns the first of the week based on locale (used by DayPicker)
+   * @returns {number}
+   */
+  getFirstDayOfWeek = () => moment.localeData(this.props.locale).firstDayOfWeek();
+
+  /**
    * Checks if given is valid format wise. Used in combination with moment's isValid method
    * A little less strict than moment's isValid with strict mode enabled
    * @param date
@@ -313,6 +318,7 @@ export default class DateInput extends React.Component {
             localeUtils={this.localeUtils}
             month={this.state.dayPickerVisibleMonth}
             showWeekNumbers={showWeekNumbers}
+            firstDayOfWeek={this.getFirstDayOfWeek()}
             locale={locale}
             captionElement={this.renderCaptionElement}
             {...otherProps}

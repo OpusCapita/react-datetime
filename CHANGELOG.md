@@ -3,6 +3,9 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## next
+* DayPicker's first day of the week is now derived from locale
+
+## 2.1.0
 * Year/month select boxes to browse through month views in day picker
 
 ## 2.0.2
