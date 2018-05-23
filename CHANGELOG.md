@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## next
+
+## 2.1.1
 * DayPicker's first day of the week is now derived from locale
 
 ## 2.1.0

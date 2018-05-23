@@ -127,6 +127,12 @@ export default class DateInput extends React.Component {
   };
 
   /**
+   * Returns the first of the week based on locale (used by DayPicker)
+   * @returns {number}
+   */
+  getFirstDayOfWeek = () => moment.localeData(this.props.locale).firstDayOfWeek();
+
+  /**
    * Handles input focus event. Shows an overlay and adds an click event listener to the document
    * @param e
    */
@@ -232,12 +238,6 @@ export default class DateInput extends React.Component {
    * @param day {date}
    */
   isSameDay = day => DateUtils.isSameDay(this.state.selectedDay, day);
-
-  /**
-   * Returns the first of the week based on locale (used by DayPicker)
-   * @returns {number}
-   */
-  getFirstDayOfWeek = () => moment.localeData(this.props.locale).firstDayOfWeek();
 
   /**
    * Checks if given is valid format wise. Used in combination with moment's isValid method
