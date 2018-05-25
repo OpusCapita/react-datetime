@@ -31,6 +31,7 @@ export default class DateInput extends React.Component {
     disabled: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     time: PropTypes.bool,
+    minutesInterval: PropTypes.number,
   };
 
   static defaultProps = {
@@ -45,6 +46,7 @@ export default class DateInput extends React.Component {
     disabled: false,
     showWeekNumbers: true,
     time: false,
+    minutesInterval: 5,
   };
 
   constructor(props) {
@@ -277,6 +279,7 @@ export default class DateInput extends React.Component {
       inputRef,
       disabled,
       showWeekNumbers,
+      minutesInterval,
       ...otherProps
     } = this.props;
     const momentDate = moment.utc(value, moment.ISO_8601);
@@ -335,6 +338,7 @@ export default class DateInput extends React.Component {
               <TimePicker
                 onChange={this.handleTimePickerChange}
                 time={timeObj}
+                minutesInterval={minutesInterval}
               />}
           </div>
         }

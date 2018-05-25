@@ -6,10 +6,12 @@ import DateInput from './date-input.component';
 export default class DateTimeInput extends React.Component {
   static propTypes = {
     dateFormat: PropTypes.string,
+    minutesInterval: PropTypes.number,
   };
 
   static defaultProps = {
     dateFormat: 'L LT',
+    minutesInterval: 5,
   };
 
   render() {
