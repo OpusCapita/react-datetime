@@ -8,10 +8,12 @@ export default class TimePicker extends React.Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
+    minutesInterval: PropTypes.number,
   };
 
   static defaultProps = {
     value: undefined,
+    minutesInterval: 5,
   };
 
   constructor(props) {
@@ -64,7 +66,7 @@ export default class TimePicker extends React.Component {
    * Provides values for the hour select box
    */
   getHourListValues = () => {
-    for (let i = 0; i < 23; i += 1) {
+    for (let i = 0; i < 24; i += 1) {
       this.hours.push(i);
     }
   };
@@ -73,9 +75,8 @@ export default class TimePicker extends React.Component {
    * Provides values for the minute select box
    */
   getMinuteListValues = () => {
-    for (let i = 0; i < 60; i += 1) {
-      const hidden = i % 5;
-      this.minutes.push({ value: i, visible: !hidden });
+    for (let i = 0; i < 60; i += this.props.minutesInterval) {
+      this.minutes.push(i);
     }
   };
 
@@ -116,11 +117,10 @@ export default class TimePicker extends React.Component {
         <FormControl name="minute" componentClass="select" value={this.state.minute} onChange={this.onChange}>
           {this.minutes.map(minute => (
             <option
-              key={`minute-${minute.value}`}
-              value={minute.value}
-              style={{ display: !minute.visible ? 'none' : '' }}
+              key={`minute-${minute}`}
+              value={minute}
             >
-              {this.getPaddedNumber(minute.value)}
+              {this.getPaddedNumber(minute)}
             </option>))}
         </FormControl>
       </div>
