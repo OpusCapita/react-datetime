@@ -5,13 +5,16 @@ export default class ComponentView extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      time: '00:00Z',
+      time: {
+        hour: 10,
+        minute: 30,
+      },
     };
   }
 
-  handleTimeChange = (time) => {
+  handleTimeChange = (newTimeValue) => {
     this.setState({
-      time,
+      time: newTimeValue,
     });
   };
 
@@ -20,10 +23,11 @@ export default class ComponentView extends React.PureComponent {
       <div style={{ margin: '20px 20px 0 20px', width: '250px' }}>
         <h4>TimePickerInput</h4>
         <TimePicker
-          value={this.state.time}
+          time={this.state.time}
           onChange={this.handleTimeChange}
+          minutesInterval={2}
         />
-        <p>Value: <code>{this.state.time || 'null'}</code></p>
+        <p>Value: <code>{this.state.time.hour}:{this.state.time.minute}</code></p>
       </div>
     );
   }

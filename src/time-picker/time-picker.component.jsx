@@ -1,28 +1,28 @@
 import React from 'react';
 import { FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import './time-picker.scss';
 
 export default class TimePicker extends React.Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.string,
+    time: PropTypes.shape({
+      hour: PropTypes.number,
+      minute: PropTypes.number,
+    }),
     minutesInterval: PropTypes.number,
   };
 
   static defaultProps = {
-    value: undefined,
+    time: {
+      hour: 0,
+      minute: 0,
+    },
     minutesInterval: 5,
   };
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      minute: this.getMinutes(props.value),
-      hour: this.getHours(props.value),
-    };
 
     this.hours = [];
     this.minutes = [];
@@ -33,25 +33,12 @@ export default class TimePicker extends React.Component {
     this.getMinuteListValues();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value && nextProps.value) {
-      this.setState({
-        minute: this.getMinutes(nextProps.value),
-        hour: this.getHours(nextProps.value),
-      });
-    }
-  }
-
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value }, () => {
-      // Makes a moment object out of value (date), rewrites hour/minute values
-      // and calls props.onChange
-      const momentDate = moment.utc(this.props.value);
-      momentDate.set('hour', this.state.hour);
-      momentDate.set('minute', this.state.minute);
-
-      this.props.onChange(momentDate.format().replace(/\u200E/g, ''));
+    const oldTime = { ...this.props.time };
+    const newTime = Object.assign(oldTime, {
+      [e.target.name]: Number(e.target.value),
     });
+    this.props.onChange(newTime);
   };
 
   /**
@@ -80,30 +67,10 @@ export default class TimePicker extends React.Component {
     }
   };
 
-  /**
-   * Gets hours based on a date
-   * @param date
-   * @returns {number}
-   */
-  getHours = (date) => {
-    if (!date) return 0;
-    return moment.utc(date).hours();
-  };
-
-  /**
-   * Gets minutes based on a date
-   * @param date
-   * @returns {number}
-   */
-  getMinutes = (date) => {
-    if (!date) return 0;
-    return moment.utc(date).minutes();
-  };
-
   render() {
     return (
       <div className="oc-time-picker-container">
-        <FormControl name="hour" componentClass="select" value={this.state.hour} onChange={this.onChange}>
+        <FormControl name="hour" componentClass="select" value={this.props.time.hour} onChange={this.onChange}>
           {this.hours.map(hour => (
             <option
               key={`hour-${hour}`}
@@ -114,7 +81,7 @@ export default class TimePicker extends React.Component {
           ))}
         </FormControl>
 
-        <FormControl name="minute" componentClass="select" value={this.state.minute} onChange={this.onChange}>
+        <FormControl name="minute" componentClass="select" value={this.props.time.minute} onChange={this.onChange}>
           {this.minutes.map(minute => (
             <option
               key={`minute-${minute}`}
