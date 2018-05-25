@@ -2,7 +2,12 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
-## next
+## <next>
+
+## 2.2.0
+* TimePicker is now also exported as an independent input control
+* TimePicker new prop: minutesInterval
+* Small bugfix - timepicker now allows to select 11 PM.
 
 ## 2.1.1
 * DayPicker's first day of the week is now derived from locale
