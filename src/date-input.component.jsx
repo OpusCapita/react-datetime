@@ -31,6 +31,7 @@ export default class DateInput extends React.Component {
     disabled: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     time: PropTypes.bool,
+    minutesInterval: PropTypes.number,
   };
 
   static defaultProps = {
@@ -45,6 +46,7 @@ export default class DateInput extends React.Component {
     disabled: false,
     showWeekNumbers: true,
     time: false,
+    minutesInterval: 5,
   };
 
   constructor(props) {
@@ -211,14 +213,16 @@ export default class DateInput extends React.Component {
 
   /**
    * Handles time picker (select boxes) change
-   * @param date
+   * @param newTime
    */
-  handleTimePickerChange = (date) => {
-    const momentDate = moment.utc(date);
+  handleTimePickerChange = (newTime) => {
+    let momentDate = moment.utc(this.props.value);
+    momentDate = momentDate.hour(newTime.hour);
+    momentDate = momentDate.minutes(newTime.minute);
     this.setState({
       inputDate: this.getDate(momentDate, FORMATS.PRETTY_DATE),
     }, () => {
-      this.props.onChange(date);
+      this.props.onChange(this.getDate(momentDate, FORMATS.UTC));
     });
   };
 
@@ -275,8 +279,14 @@ export default class DateInput extends React.Component {
       inputRef,
       disabled,
       showWeekNumbers,
+      minutesInterval,
       ...otherProps
     } = this.props;
+    const momentDate = moment.utc(value, moment.ISO_8601);
+    const timeObj = {
+      hour: momentDate.hour(),
+      minute: momentDate.minute(),
+    };
 
     return (
       <TetherComponent
@@ -302,34 +312,35 @@ export default class DateInput extends React.Component {
           />
         </FormGroup>
         {this.state.showOverlay &&
-        <div
-          role="presentation"
-          className={`${classPrefix}-calendar`}
-          ref={(el) => {
-            this.calendarContainer = el;
-          }}
-        >
-          <DayPicker
+          <div
+            role="presentation"
+            className={`${classPrefix}-calendar`}
             ref={(el) => {
-              this.dayPicker = el;
+              this.calendarContainer = el;
             }}
-            onDayClick={this.handleDayClick}
-            selectedDays={this.isSameDay}
-            localeUtils={this.localeUtils}
-            month={this.state.dayPickerVisibleMonth}
-            showWeekNumbers={showWeekNumbers}
-            firstDayOfWeek={this.getFirstDayOfWeek()}
-            locale={locale}
-            captionElement={this.renderCaptionElement}
-            {...otherProps}
-          />
+          >
+            <DayPicker
+              ref={(el) => {
+                this.dayPicker = el;
+              }}
+              onDayClick={this.handleDayClick}
+              selectedDays={this.isSameDay}
+              localeUtils={this.localeUtils}
+              month={this.state.dayPickerVisibleMonth}
+              showWeekNumbers={showWeekNumbers}
+              firstDayOfWeek={this.getFirstDayOfWeek()}
+              locale={locale}
+              captionElement={this.renderCaptionElement}
+              {...otherProps}
+            />
 
-          {time &&
-          <TimePicker
-            onChange={this.handleTimePickerChange}
-            value={value}
-          />}
-        </div>
+            {time &&
+              <TimePicker
+                onChange={this.handleTimePickerChange}
+                time={timeObj}
+                minutesInterval={minutesInterval}
+              />}
+          </div>
         }
       </TetherComponent>
     );

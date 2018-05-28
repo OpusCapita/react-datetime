@@ -1,7 +1,8 @@
 import React from 'react';
 import { Panel, Grid, Row, Col } from 'react-bootstrap';
 import DateInput from '../components/dateinput.component';
-import TimeInput from '../components/timeinput.component';
+import DateTimeInput from '../components/datetimeinput.component';
+import TimeOnlyInput from '../components/timeonlyinput.component';
 
 import GithubLogo from '../images/logo-github.svg';
 
@@ -26,7 +27,10 @@ export default () => (
           <DateInput />
         </Panel>
         <Panel>
-          <TimeInput />
+          <DateTimeInput />
+        </Panel>
+        <Panel>
+          <TimeOnlyInput />
         </Panel>
       </Col>
     </Row>
