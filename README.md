@@ -32,6 +32,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | inputRef                 | function |               | Input component ref function              |
 | disabled                 | boolean  |               | Is component disabled                     |
 | time                     | boolean  | false         | Time picker on/off. Prefer DateTime component if possible                        |
+| minutesInterval          | number   | 5             | Minutes interval for the timepicker       |
 | showWeekNumber           | boolean  | true          | Show week number in calendar              |
 
 ### Code example
@@ -45,6 +46,10 @@ constructor(props) {
   this.state = {
     date: null,
     dateTime: null,
+    time: {
+      hour: 10,
+      minute: 30,
+    },
   }
 }
 
@@ -55,10 +60,16 @@ export default class SomeView extends React.Component {
         value={this.state.date}
         onChange={this.changeDate}
       />
-      
+
       <DataTimeInput
         value={this.state.dateTime}
         onChange={this.changeDateTime}
+      />
+
+      <TimePicker
+        time={this.state.time}
+        onChange={this.changeTime}
+        minutesInterval={2}
       />
     );
   }
