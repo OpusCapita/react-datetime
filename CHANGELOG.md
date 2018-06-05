@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 2.2.1
+* Fixed handling of disabled days. Now a user cannot choose a disabled day from a date picker.
+
 ## 2.2.0
 * TimePicker is now also exported as an independent input control
 * TimePicker new prop: minutesInterval
