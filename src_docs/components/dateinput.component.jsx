@@ -28,6 +28,7 @@ export default class ComponentView extends React.PureComponent {
       <div style={{ margin: '20px 20px 0 20px', width: '250px' }}>
         <h4>DateInput</h4>
         <DateInput
+          disabledDays={{ daysOfWeek: [0, 6] }}
           value={this.state.date}
           onChange={this.handleDateChange}
         />
