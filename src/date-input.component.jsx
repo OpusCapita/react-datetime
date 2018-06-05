@@ -199,7 +199,10 @@ export default class DateInput extends React.Component {
    * Handles dayPicker click
    * @param day {date}
    */
-  handleDayClick = (day) => {
+  handleDayClick = (day, modifiers = {}) => {
+    if (modifiers.disabled) {
+      return;
+    }
     const momentObj = moment.utc(day);
     this.setState({
       selectedDay: day,
