@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 2.2.3
+* Bug fix: Github Issue #11 - Internet Explorer related style fixes
+
 ## 2.2.2
 * Bug fix: Github Issue #9 - Overlaying calendar should fallback to window if parentElement container is scrollable.
 
