@@ -294,10 +294,15 @@ export default class DateInput extends React.Component {
     return (
       <TetherComponent
         attachment="top center"
-        constraints={[{
-          to: 'scrollParent',
-          attachment: 'together',
-        }]}
+        constraints={[
+          {
+            to: 'scrollParent',
+            pin: true,
+          },
+          {
+            to: 'window',
+            attachment: 'together',
+          }]}
         className={`${classPrefix}`}
       >
         <FormGroup>
