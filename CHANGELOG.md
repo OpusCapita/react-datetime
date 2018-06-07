@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 2.2.2
 * Bug fix: Github Issue #9 - Overlaying calendar should fallback to window if parentElement container is scrollable.
 
 ## 2.2.1
