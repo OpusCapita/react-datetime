@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Bug fix: time handling fixes in handleDayClick function
 
 ## 2.2.3
 * Bug fix: Github Issue #11 - Internet Explorer related style fixes
