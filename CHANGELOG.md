@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 2.2.4
 * Bug fix: time handling fixes in handleDayClick function
 
 ## 2.2.3
