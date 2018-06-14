@@ -200,16 +200,33 @@ export default class DateInput extends React.Component {
    * @param day {date}
    */
   handleDayClick = (day, modifiers = {}) => {
-    if (modifiers.disabled) {
-      return;
+    if (modifiers.disabled) return;
+
+    const { value, time } = this.props;
+    const momentDate = moment.utc(day);
+
+    let timeAdjustedDate = null;
+    const currentMomentDate = moment(value, moment.ISO_8601).utc();
+    const currentHours = currentMomentDate.get('hour');
+    const currentMinutes = currentMomentDate.get('minute');
+
+    if (time) {
+      // Set current (previously selected) time to newly picked date
+      timeAdjustedDate = momentDate
+        .set('hour', currentHours)
+        .set('minute', currentMinutes);
+    } else {
+      // If we don't need to bother ourselves with an exact time,
+      // we can set time to T00:00:00.000Z
+      timeAdjustedDate = momentDate.startOf('day');
     }
-    const momentObj = moment.utc(day);
+
     this.setState({
       selectedDay: day,
       showOverlay: false,
-      inputDate: this.getDate(momentObj, FORMATS.PRETTY_DATE),
+      inputDate: this.getDate(timeAdjustedDate, FORMATS.PRETTY_DATE),
     }, () => {
-      this.props.onChange(this.getDate(momentObj, FORMATS.UTC));
+      this.props.onChange(this.getDate(timeAdjustedDate, FORMATS.UTC));
       this.input.blur();
     });
   };
@@ -320,35 +337,34 @@ export default class DateInput extends React.Component {
           />
         </FormGroup>
         {this.state.showOverlay &&
-          <div
-            role="presentation"
-            className={`${classPrefix}-calendar`}
+        <div
+          role="presentation"
+          className={`${classPrefix}-calendar`}
+          ref={(el) => {
+            this.calendarContainer = el;
+          }}
+        >
+          <DayPicker
             ref={(el) => {
-              this.calendarContainer = el;
+              this.dayPicker = el;
             }}
-          >
-            <DayPicker
-              ref={(el) => {
-                this.dayPicker = el;
-              }}
-              onDayClick={this.handleDayClick}
-              selectedDays={this.isSameDay}
-              localeUtils={this.localeUtils}
-              month={this.state.dayPickerVisibleMonth}
-              showWeekNumbers={showWeekNumbers}
-              firstDayOfWeek={this.getFirstDayOfWeek()}
-              locale={locale}
-              captionElement={this.renderCaptionElement}
-              {...otherProps}
-            />
-
-            {time &&
-              <TimePicker
-                onChange={this.handleTimePickerChange}
-                time={timeObj}
-                minutesInterval={minutesInterval}
-              />}
-          </div>
+            onDayClick={this.handleDayClick}
+            selectedDays={this.isSameDay}
+            localeUtils={this.localeUtils}
+            month={this.state.dayPickerVisibleMonth}
+            showWeekNumbers={showWeekNumbers}
+            firstDayOfWeek={this.getFirstDayOfWeek()}
+            locale={locale}
+            captionElement={this.renderCaptionElement}
+            {...otherProps}
+          />
+          {time &&
+          <TimePicker
+            onChange={this.handleTimePickerChange}
+            time={timeObj}
+            minutesInterval={minutesInterval}
+          />}
+        </div>
         }
       </TetherComponent>
     );
