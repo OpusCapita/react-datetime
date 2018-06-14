@@ -358,7 +358,6 @@ export default class DateInput extends React.Component {
             captionElement={this.renderCaptionElement}
             {...otherProps}
           />
-
           {time &&
           <TimePicker
             onChange={this.handleTimePickerChange}
