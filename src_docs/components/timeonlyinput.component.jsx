@@ -20,7 +20,7 @@ export default class ComponentView extends React.PureComponent {
 
   render() {
     return (
-      <div style={{ margin: '20px 20px 0 20px', width: '250px' }}>
+      <div style={{ width: '250px' }}>
         <h4>TimePickerInput</h4>
         <TimePicker
           time={this.state.time}

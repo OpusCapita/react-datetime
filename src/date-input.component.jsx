@@ -76,7 +76,7 @@ export default class DateInput extends React.Component {
   // TODO: change this one to getDerivedStateFromProps ASAP
   componentWillReceiveProps(nextProps) {
     // If value changes when input is blurred
-    if (!this.focused && nextProps.value && this.props.value !== nextProps.value) {
+    if (!this.focused && this.props.value !== nextProps.value) {
       const momentDate = moment.utc(nextProps.value, moment.ISO_8601);
       this.setState({
         selectedDay: this.getDate(momentDate, FORMATS.DATE_OBJECT),

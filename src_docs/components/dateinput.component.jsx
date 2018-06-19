@@ -23,9 +23,15 @@ export default class ComponentView extends React.PureComponent {
     });
   };
 
+  handleButtonClick = () => {
+    this.setState({
+      date: '',
+    });
+  }
+
   render() {
     return (
-      <div style={{ margin: '20px 20px 0 20px', width: '250px' }}>
+      <div style={{ width: '250px' }}>
         <h4>DateInput</h4>
         <DateInput
           disabledDays={{ daysOfWeek: [0, 6] }}
@@ -33,6 +39,7 @@ export default class ComponentView extends React.PureComponent {
           onChange={this.handleDateChange}
         />
         <p>Value: <code>{this.state.date || 'null'}</code></p>
+        <button onClick={this.handleButtonClick}>Clear value</button>
       </div>
     );
   }
