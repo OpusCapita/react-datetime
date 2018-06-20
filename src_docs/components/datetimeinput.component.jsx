@@ -17,7 +17,7 @@ export default class ComponentView extends React.PureComponent {
 
   render() {
     return (
-      <div style={{ margin: '20px 20px 0 20px', width: '250px' }}>
+      <div style={{ width: '250px' }}>
         <h4>DateTimeInput (Finnish locale)</h4>
         <DateTime
           value={this.state.date}

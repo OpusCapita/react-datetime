@@ -49,6 +49,41 @@ export default class DateInput extends React.Component {
     minutesInterval: 5,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.value !== state.lastValue) {
+      const momentDate = moment.utc(props.value, moment.ISO_8601);
+      return {
+        lastValue: props.value,
+        selectedDay: DateInput.getDate(momentDate, FORMATS.DATE_OBJECT),
+        inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat),
+      };
+    }
+    return null;
+  }
+
+  /**
+   * Converts given date into wanted type (string/date object)
+   * @param date - {string, moment object}
+   * @param type - {string, date object} type of the return value
+   * @param dateFormat {string} date format, defaults to 'M/D/YYYY'
+   * ('M/D/YYYY' h:mm when using DateTime)
+   * * @returns {string, date}
+   */
+  static getDate(date, type, dateFormat) {
+    const momentDate = typeof date === 'string' ? moment.utc(date, dateFormat) : date;
+    const removeInvisibleChars = str => str.replace(/\u200E/g, '');
+    if (!momentDate.isValid() || !date) return '';
+    switch (type) {
+      case FORMATS.PRETTY_DATE:
+        return removeInvisibleChars(momentDate.format(dateFormat));
+      case FORMATS.UTC:
+        return removeInvisibleChars(momentDate.toISOString());
+      case FORMATS.DATE_OBJECT:
+      default:
+        return momentDate.toDate();
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -56,11 +91,13 @@ export default class DateInput extends React.Component {
     this.onDocumentClick = this.onDocumentClick.bind(this);
 
     this.state = {
+      /* eslint-disable-next-line react/no-unused-state */
+      lastValue: null,
       showOverlay: false,
       // selectedDay: Selected day in calendar (date object)
-      selectedDay: this.getDate(momentDate, FORMATS.DATE_OBJECT),
+      selectedDay: DateInput.getDate(momentDate, FORMATS.DATE_OBJECT, props.dateFormat),
       // inputDate: Prettified string shown in input field
-      inputDate: this.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat),
+      inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat),
     };
 
     this.localeUtils = Object.assign(
@@ -71,18 +108,6 @@ export default class DateInput extends React.Component {
     this.input = null;
     this.dayPicker = null;
     this.focused = false;
-  }
-
-  // TODO: change this one to getDerivedStateFromProps ASAP
-  componentWillReceiveProps(nextProps) {
-    // If value changes when input is blurred
-    if (!this.focused && nextProps.value && this.props.value !== nextProps.value) {
-      const momentDate = moment.utc(nextProps.value, moment.ISO_8601);
-      this.setState({
-        selectedDay: this.getDate(momentDate, FORMATS.DATE_OBJECT),
-        inputDate: this.getDate(momentDate, FORMATS.PRETTY_DATE, nextProps.dateFormat),
-      });
-    }
   }
 
   componentWillUnmount() {
@@ -102,29 +127,6 @@ export default class DateInput extends React.Component {
       e.target !== this.input) {
       this.closeOverlay();
       document.removeEventListener('click', this.onDocumentClick);
-    }
-  };
-
-  /**
-   * Converts given date into wanted type (string/date object)
-   * @param date - {string, moment object}
-   * @param type - {string, date object} type of the return value
-   * @param dateFormat {string} date format, defaults to 'M/D/YYYY'
-   * ('M/D/YYYY' h:mm when using DateTime)
-   * * @returns {string, date}
-   */
-  getDate = (date, type, dateFormat = this.props.dateFormat) => {
-    const momentDate = typeof date === 'string' ? moment.utc(date, dateFormat) : date;
-    const removeInvisibleChars = str => str.replace(/\u200E/g, '');
-    if (!momentDate.isValid() || !date) return '';
-    switch (type) {
-      case FORMATS.PRETTY_DATE:
-        return removeInvisibleChars(momentDate.format(dateFormat));
-      case FORMATS.UTC:
-        return removeInvisibleChars(momentDate.toISOString());
-      case FORMATS.DATE_OBJECT:
-      default:
-        return momentDate.toDate();
     }
   };
 
@@ -182,12 +184,12 @@ export default class DateInput extends React.Component {
     // This fires only if the new date is valid in given format
     if (moment.utc(inputDate, dateFormat).isValid() && this.isValidFormat(inputDate)) {
       this.setState({
-        selectedDay: this.getDate(inputDate, FORMATS.DATE_OBJECT),
+        selectedDay: DateInput.getDate(inputDate, FORMATS.DATE_OBJECT, dateFormat),
       }, () => {
         // If dayPicker is open, we will show the correct month
         if (this.dayPicker) this.dayPicker.showMonth(this.state.selectedDay);
       });
-      onChange(this.getDate(inputDate, FORMATS.UTC));
+      onChange(DateInput.getDate(inputDate, FORMATS.UTC, dateFormat));
       if (inputProps.onChange) inputProps.onChange(e);
     } else {
       // If the value is invalid we reset the model value
@@ -202,7 +204,7 @@ export default class DateInput extends React.Component {
   handleDayClick = (day, modifiers = {}) => {
     if (modifiers.disabled) return;
 
-    const { value, time } = this.props;
+    const { dateFormat, value, time } = this.props;
     const momentDate = moment.utc(day);
 
     let timeAdjustedDate = null;
@@ -224,9 +226,9 @@ export default class DateInput extends React.Component {
     this.setState({
       selectedDay: day,
       showOverlay: false,
-      inputDate: this.getDate(timeAdjustedDate, FORMATS.PRETTY_DATE),
+      inputDate: DateInput.getDate(timeAdjustedDate, FORMATS.PRETTY_DATE, dateFormat),
     }, () => {
-      this.props.onChange(this.getDate(timeAdjustedDate, FORMATS.UTC));
+      this.props.onChange(DateInput.getDate(timeAdjustedDate, FORMATS.UTC, dateFormat));
       this.input.blur();
     });
   };
@@ -236,13 +238,14 @@ export default class DateInput extends React.Component {
    * @param newTime
    */
   handleTimePickerChange = (newTime) => {
+    const { dateFormat } = this.props;
     let momentDate = moment.utc(this.props.value);
     momentDate = momentDate.hour(newTime.hour);
     momentDate = momentDate.minutes(newTime.minute);
     this.setState({
-      inputDate: this.getDate(momentDate, FORMATS.PRETTY_DATE),
+      inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
     }, () => {
-      this.props.onChange(this.getDate(momentDate, FORMATS.UTC));
+      this.props.onChange(DateInput.getDate(momentDate, FORMATS.UTC, dateFormat));
     });
   };
 
