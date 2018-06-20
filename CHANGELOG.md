@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.0.0
 * Changed React version to 16.3. Fixed methods related to a new component lifecycle
 * Fixed handling of empty value of 'value' property
 
