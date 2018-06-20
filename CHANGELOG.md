@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Changed React version to 16.3. Fixed methods related to a new component lifecycle
+* Fixed handling of empty value of 'value' property
 
 ## 2.2.4
 * Bug fix: time handling fixes in handleDayClick function
