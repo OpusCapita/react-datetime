@@ -5,17 +5,26 @@ import { DateInput } from '../src/index';
 
 const stories = storiesOf('@opuscapita/react-datetime/dateinput', module);
 
-// Locales
-stories.add('locales', () =>
+// Localization story
+stories.add('Localization', () =>
   (
     <div id="component-container">
-      <DateInput value="03/05/2008" locale={text('en')} />
+      <DateInput
+        value="03/05/2008"
+        locale={text('en')}
+        dateFormat={text('Date format as string', 'YYYY-MM-DD')}
+      />
     </div>
   ));
 
-stories.add('week numbers', () =>
+stories.add('Calendar visualization', () =>
   (
     <div id="component-container">
-      <DateInput value="03/05/2008" locale="en" showWeekNumber={false} />
+      <DateInput
+        value="03/05/2008"
+        locale="en"
+        time={boolean('With time', false)}
+        showWeekNumbers={boolean('Show week numbers', false)}
+      />
     </div>
   ));
