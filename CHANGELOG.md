@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.0.1
 * Added OpusCapita brand colors.
 
 ## 3.0.0

@@ -1,11 +1,56 @@
+@import '~@opuscapita/oc-cm-common-styles/styles/colors';
+
 .oc-datetime {
+
+  $default-calendar-font-color: #67707c;
+  $background-gray: lighten($oc-color-gray, 15%);
+
   &-calendar {
-    background-color: #fff;
+    background-color: $oc-color-white;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
+    border: 1px solid $oc-color-gray;
+
+    .oc-time-picker-container {
+      background: $background-gray;
+      margin-top: -1rem;
+    }
   }
+
+  // Overriding day picker styles
   .DayPicker-Month {
     min-width: 260px;
+    margin: 0;
+  }
+
+  // Weekdays
+  .DayPicker-WeekdaysRow {
+    background: $background-gray;
+  }
+
+  // Current day
+  .DayPicker-Day--today {
+    color: $default-calendar-font-color;
+    font-weight: normal;
+    border: 1px solid $default-calendar-font-color;
+  }
+
+  // Disabled day
+  .DayPicker-Day--disabled {
+    color: $oc-color-gray;
+  }
+
+  // Selected day
+  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+    background: $oc-color-orange;
+    border-radius: 0;
+    color: $oc-color-white;
+  }
+
+  // Hover
+  .DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+    border-radius: 0;
+    background: lighten($oc-color-orange, 40%);
   }
 }
