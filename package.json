@@ -38,6 +38,7 @@
     "react-dom": "15 || 16"
   },
   "devDependencies": {
+    "@opuscapita/oc-cm-common-styles": "2.1.0",
     "autoprefixer": "8.0.0",
     "babel-cli": "6.26.0",
     "babel-eslint": "8.2.2",
