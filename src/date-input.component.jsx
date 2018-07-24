@@ -50,7 +50,7 @@ export default class DateInput extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    if (props.value !== state.lastValue) {
+    if (!state.showOverlay && props.value !== state.lastValue) {
       const momentDate = moment.utc(props.value, moment.ISO_8601);
       return {
         lastValue: props.value,
@@ -107,7 +107,6 @@ export default class DateInput extends React.Component {
 
     this.input = null;
     this.dayPicker = null;
-    this.focused = false;
   }
 
   componentWillUnmount() {
@@ -142,7 +141,6 @@ export default class DateInput extends React.Component {
    */
   handleInputFocus = (e) => {
     const { showOverlay, selectedDay } = this.state;
-    this.focused = true;
 
     this.setState({
       showOverlay: true,
@@ -162,8 +160,6 @@ export default class DateInput extends React.Component {
    * @param e
    */
   closeOverlay = (e) => {
-    this.focused = false;
-
     this.setState({
       showOverlay: false,
     }, () => {
@@ -196,6 +192,10 @@ export default class DateInput extends React.Component {
       onChange(null);
     }
   };
+
+  handleInputBlur = () => {
+    this.prettifyInputDate();
+  }
 
   /**
    * Handles dayPicker click
@@ -278,6 +278,15 @@ export default class DateInput extends React.Component {
     return pattern.test(date.trim());
   };
 
+  prettifyInputDate = () => {
+    const { value } = this.props;
+    const { dateFormat } = this.props;
+    const momentDate = moment.utc(value, moment.ISO_8601);
+    this.setState({
+      inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
+    });
+  }
+
   /**
    * Renders select boxes above the calendar
    * @param date
@@ -337,6 +346,7 @@ export default class DateInput extends React.Component {
             {...inputProps}
             onChange={this.handleInputChange}
             onFocus={this.handleInputFocus}
+            onBlur={this.handleInputBlur}
           />
         </FormGroup>
         {this.state.showOverlay &&
