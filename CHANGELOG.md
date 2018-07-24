@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed an issue: Changing year or month in "day picker" doesn't affect the selected date
 
 ## 3.1.0
 * Fixed an issue: Typing invalid value clears date input

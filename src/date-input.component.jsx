@@ -254,8 +254,17 @@ export default class DateInput extends React.Component {
    * @param date
    */
   handleYearMonthChange = (val) => {
+    const { value, dateFormat } = this.props;
+    const momentDate = moment.utc(value, moment.ISO_8601);
+
+    momentDate.year(val.getFullYear()).month(val.getMonth());
+
     this.setState({
+      inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
+      selectedDay: DateInput.getDate(momentDate, FORMATS.DATE_OBJECT, dateFormat),
       dayPickerVisibleMonth: val,
+    }, () => {
+      this.props.onChange(DateInput.getDate(momentDate, FORMATS.UTC, dateFormat));
     });
   };
 
@@ -279,8 +288,7 @@ export default class DateInput extends React.Component {
   };
 
   prettifyInputDate = () => {
-    const { value } = this.props;
-    const { dateFormat } = this.props;
+    const { value, dateFormat } = this.props;
     const momentDate = moment.utc(value, moment.ISO_8601);
     this.setState({
       inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
