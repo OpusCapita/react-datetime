@@ -3,7 +3,10 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.1.0
 * Fixed an issue: Typing invalid value clears date input
+* Added date prettifying on input blurring
 
 ## 3.0.1
 * Added OpusCapita brand colors.
