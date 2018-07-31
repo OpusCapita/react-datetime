@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed an issue #21: because of default first day of week, default locale is changed to en_GB 
 
 ## 3.1.1
 * Fixed an issue: Changing year or month in "day picker" doesn't affect the selected date
