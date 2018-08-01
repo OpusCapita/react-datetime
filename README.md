@@ -26,6 +26,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | ------------------------ | ---------| ------------- | ----------------------------------------- |
 | value                    | string   | ''            | Current date value                        |
 | onChange                 | function |               | onChange callback returns new date string |
+| onDayClick               | function |               | onDayClick callback http://react-day-picker.js.org/api/DayPicker#onDayClick |
 | locale                   | string   | 'en'          | Locale                                    |
 | dateFormat               | string   | 'M/D/YYYY'    | Date format as MomentJS [format](https://momentjs.com/docs/#/displaying/format) |
 | inputProps               | object   |               | Custom props for the input field          |
