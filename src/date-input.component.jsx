@@ -24,6 +24,7 @@ export default class DateInput extends React.Component {
   static propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
+    onDayClick: PropTypes.func,
     locale: PropTypes.string,
     dateFormat: PropTypes.string,
     inputProps: PropTypes.object,
@@ -40,6 +41,7 @@ export default class DateInput extends React.Component {
     locale: 'en_GB',
     onChange() {
     },
+    onDayClick: () => {},
     inputProps: {},
     inputRef() {
     },
@@ -231,6 +233,8 @@ export default class DateInput extends React.Component {
       this.props.onChange(DateInput.getDate(timeAdjustedDate, FORMATS.UTC, dateFormat));
       this.input.blur();
     });
+
+    this.props.onDayClick(day, modifiers);
   };
 
   /**
@@ -366,10 +370,10 @@ export default class DateInput extends React.Component {
           }}
         >
           <DayPicker
+            {...otherProps}
             ref={(el) => {
               this.dayPicker = el;
             }}
-            onDayClick={this.handleDayClick}
             selectedDays={this.isSameDay}
             localeUtils={this.localeUtils}
             month={this.state.dayPickerVisibleMonth}
@@ -377,7 +381,7 @@ export default class DateInput extends React.Component {
             firstDayOfWeek={this.getFirstDayOfWeek()}
             locale={locale}
             captionElement={this.renderCaptionElement}
-            {...otherProps}
+            onDayClick={this.handleDayClick}
           />
           {time &&
           <TimePicker
