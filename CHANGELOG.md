@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.2.0
 * Fixed an issue #21: because of default first day of week, default locale is changed to en_GB
 * Added onDayClick prop 
 
