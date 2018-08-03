@@ -30,6 +30,11 @@ export default class DateInput extends React.Component {
     inputProps: PropTypes.object,
     inputRef: PropTypes.func,
     disabled: PropTypes.bool,
+    selectedDays: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+      PropTypes.array,
+    ]),
     showWeekNumbers: PropTypes.bool,
     time: PropTypes.bool,
     minutesInterval: PropTypes.number,
@@ -46,6 +51,7 @@ export default class DateInput extends React.Component {
     inputRef() {
     },
     disabled: false,
+    selectedDays: null,
     showWeekNumbers: true,
     time: false,
     minutesInterval: 5,
@@ -322,6 +328,7 @@ export default class DateInput extends React.Component {
       inputProps,
       inputRef,
       disabled,
+      selectedDays,
       showWeekNumbers,
       minutesInterval,
       ...otherProps
@@ -374,7 +381,7 @@ export default class DateInput extends React.Component {
             ref={(el) => {
               this.dayPicker = el;
             }}
-            selectedDays={this.isSameDay}
+            selectedDays={selectedDays || this.isSameDay}
             localeUtils={this.localeUtils}
             month={this.state.dayPickerVisibleMonth}
             showWeekNumbers={showWeekNumbers}
