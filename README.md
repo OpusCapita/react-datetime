@@ -22,20 +22,21 @@ Also you need to configure sass loader, since all the styles are in sass format.
 * Add [SASS loader](https://github.com/webpack-contrib/sass-loader) to support importing of SASS styles.
 
 ### API
-| Prop name                | Type     | Default       | Description                               |
-| ------------------------ | ---------| ------------- | ----------------------------------------- |
-| value                    | string   | ''            | Current date value                        |
-| onChange                 | function |               | onChange callback returns new date string |
-| onDayClick               | function |               | onDayClick callback http://react-day-picker.js.org/api/DayPicker#onDayClick |
-| locale                   | string   | 'en'          | Locale                                    |
-| dateFormat               | string   | 'M/D/YYYY'    | Date format as MomentJS [format](https://momentjs.com/docs/#/displaying/format) |
-| inputProps               | object   |               | Custom props for the input field          |
-| inputRef                 | function |               | Input component ref function              |
-| disabled                 | boolean  |               | Is component disabled                     |
-| time                     | boolean  | false         | Time picker on/off. Prefer DateTime component if possible                        |
-| minutesInterval          | number   | 5             | Minutes interval for the timepicker       |
-| showWeekNumber           | boolean  | true          | Show week number in calendar              |
-| selectedDays             | array, object, function | null | http://react-day-picker.js.org/api/DayPicker#selectedDays |
+| Prop name       | Type                    | Default    | Description                                                                     |
+| --------------- | ----------------------- | ---------- | ------------------------------------------------------------------------------- |
+| value           | string                  | ''         | Current date value                                                              |
+| onChange        | function                |            | onChange callback returns new date string                                       |
+| onDayClick      | function                |            | onDayClick callback http://react-day-picker.js.org/api/DayPicker#onDayClick     |
+| locale          | string                  | 'en'       | Locale                                                                          |
+| dateFormat      | string                  | 'M/D/YYYY' | Date format as MomentJS [format](https://momentjs.com/docs/#/displaying/format) |
+| inputProps      | object                  |            | Custom props for the input field                                                |
+| inputRef        | function                |            | Input component ref function                                                    |
+| disabled        | boolean                 |            | Is component disabled                                                           |
+| time            | boolean                 | false      | Time picker on/off. Prefer DateTime component if possible                       |
+| minutesInterval | number                  | 5          | Minutes interval for the timepicker                                             |
+| showOverlay     | boolean                 | false      | Show overlay                                                                    |
+| showWeekNumber  | boolean                 | true       | Show week number in calendar                                                    |
+| selectedDays    | array, object, function | null       | http://react-day-picker.js.org/api/DayPicker#selectedDays                       |
 
 ### Code example
 

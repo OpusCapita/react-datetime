@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added showOverlay prop
 
 ## 3.2.1
 * Added selectedDays prop
