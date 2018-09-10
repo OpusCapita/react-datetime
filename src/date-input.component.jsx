@@ -35,6 +35,7 @@ export default class DateInput extends React.Component {
       PropTypes.func,
       PropTypes.array,
     ]),
+    showOverlay: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     time: PropTypes.bool,
     minutesInterval: PropTypes.number,
@@ -52,6 +53,7 @@ export default class DateInput extends React.Component {
     },
     disabled: false,
     selectedDays: null,
+    showOverlay: false,
     showWeekNumbers: true,
     time: false,
     minutesInterval: 5,
@@ -63,6 +65,7 @@ export default class DateInput extends React.Component {
       return {
         lastValue: props.value,
         selectedDay: DateInput.getDate(momentDate, FORMATS.DATE_OBJECT),
+        showOverlay: props.showOverlay || state.showOverlay,
         inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat),
       };
     }
@@ -383,7 +386,7 @@ export default class DateInput extends React.Component {
             }}
             selectedDays={selectedDays || this.isSameDay}
             localeUtils={this.localeUtils}
-            month={this.state.dayPickerVisibleMonth}
+            month={this.state.dayPickerVisibleMonth || this.state.selectedDay}
             showWeekNumbers={showWeekNumbers}
             firstDayOfWeek={this.getFirstDayOfWeek()}
             locale={locale}
