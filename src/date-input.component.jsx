@@ -341,6 +341,8 @@ export default class DateInput extends React.Component {
       hour: momentDate.hour(),
       minute: momentDate.minute(),
     };
+    const month = this.state.dayPickerVisibleMonth ||
+      typeof this.state.selectedDay === 'string' ? undefined : this.state.selectedDay;
 
     return (
       <TetherComponent
@@ -386,7 +388,7 @@ export default class DateInput extends React.Component {
             }}
             selectedDays={selectedDays || this.isSameDay}
             localeUtils={this.localeUtils}
-            month={this.state.dayPickerVisibleMonth || this.state.selectedDay}
+            month={month}
             showWeekNumbers={showWeekNumbers}
             firstDayOfWeek={this.getFirstDayOfWeek()}
             locale={locale}
