@@ -16,7 +16,7 @@ export default class YearMonthPicker extends React.Component {
 
   static defaultProps = {
     date: null,
-    locale: 'en_GB',
+    locale: 'en-GB',
   };
 
   constructor(props) {

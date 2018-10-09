@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Changed locale default en_GB -> en-GB
 
 ## 3.2.3
 * Fixed month initialization
