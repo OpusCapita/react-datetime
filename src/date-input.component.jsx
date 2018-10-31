@@ -268,7 +268,7 @@ export default class DateInput extends React.Component {
    */
   handleYearMonthChange = (val) => {
     const { value, dateFormat } = this.props;
-    const momentDate = moment.utc(value, moment.ISO_8601);
+    const momentDate = value ? moment.utc(value, moment.ISO_8601) : moment.utc();
 
     momentDate.year(val.getFullYear()).month(val.getMonth());
 
@@ -342,7 +342,7 @@ export default class DateInput extends React.Component {
       minute: momentDate.minute(),
     };
     const month = this.state.dayPickerVisibleMonth ||
-      typeof this.state.selectedDay === 'string' ? undefined : this.state.selectedDay;
+      ((typeof this.state.selectedDay === 'string') ? undefined : this.state.selectedDay);
 
     return (
       <TetherComponent

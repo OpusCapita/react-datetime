@@ -4,6 +4,8 @@
 
 ## <next>
 * Changed locale default en_GB -> en-GB
+* Fixed: changing year or month from caption updated daypicker view accordingly
+* Fixed: year or month get selected from caption even if date is unselected (empty)
 
 ## 3.2.3
 * Fixed month initialization
@@ -16,7 +18,7 @@
 
 ## 3.2.0
 * Fixed an issue #21: because of default first day of week, default locale is changed to en_GB
-* Added onDayClick prop 
+* Added onDayClick prop
 
 ## 3.1.1
 * Fixed an issue: Changing year or month in "day picker" doesn't affect the selected date
