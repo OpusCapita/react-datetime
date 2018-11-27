@@ -47,7 +47,8 @@ export default class DateInput extends React.Component {
     locale: 'en-GB',
     onChange() {
     },
-    onDayClick: () => {},
+    onDayClick: () => {
+    },
     inputProps: {},
     inputRef() {
     },
@@ -113,7 +114,10 @@ export default class DateInput extends React.Component {
 
     this.localeUtils = Object.assign(
       LocaleUtils,
-      { getFirstDayOfWeek: () => moment.localeData().firstDayOfWeek() },
+      {
+        getFirstDayOfWeek: () => moment.localeData()
+          .firstDayOfWeek()
+      },
     );
 
     this.input = null;
@@ -144,7 +148,8 @@ export default class DateInput extends React.Component {
    * Returns the first of the week based on locale (used by DayPicker)
    * @returns {number}
    */
-  getFirstDayOfWeek = () => moment.localeData(this.props.locale).firstDayOfWeek();
+  getFirstDayOfWeek = () => moment.localeData(this.props.locale)
+    .firstDayOfWeek();
 
   /**
    * Handles input focus event. Shows an overlay and adds an click event listener to the document
@@ -189,7 +194,8 @@ export default class DateInput extends React.Component {
 
     this.setState({ inputDate });
     // This fires only if the new date is valid in given format
-    if (moment.utc(inputDate, dateFormat).isValid() && this.isValidFormat(inputDate)) {
+    if (moment.utc(inputDate, dateFormat)
+      .isValid() && this.isValidFormat(inputDate)) {
       this.setState({
         selectedDay: DateInput.getDate(inputDate, FORMATS.DATE_OBJECT, dateFormat),
       }, () => {
@@ -206,7 +212,8 @@ export default class DateInput extends React.Component {
 
   handleInputBlur = () => {
     this.prettifyInputDate();
-  }
+    this.setState({ showOverlay: false });
+  };
 
   /**
    * Handles dayPicker click
@@ -219,7 +226,8 @@ export default class DateInput extends React.Component {
     const momentDate = moment.utc(day);
 
     let timeAdjustedDate = null;
-    const currentMomentDate = moment(value, moment.ISO_8601).utc();
+    const currentMomentDate = moment(value, moment.ISO_8601)
+      .utc();
     const currentHours = currentMomentDate.get('hour');
     const currentMinutes = currentMomentDate.get('minute');
 
@@ -270,7 +278,8 @@ export default class DateInput extends React.Component {
     const { value, dateFormat } = this.props;
     const momentDate = value ? moment.utc(value, moment.ISO_8601) : moment.utc();
 
-    momentDate.year(val.getFullYear()).month(val.getMonth());
+    momentDate.year(val.getFullYear())
+      .month(val.getMonth());
 
     this.setState({
       inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
@@ -306,7 +315,7 @@ export default class DateInput extends React.Component {
     this.setState({
       inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
     });
-  }
+  };
 
   /**
    * Renders select boxes above the calendar
