@@ -116,7 +116,7 @@ export default class DateInput extends React.Component {
       LocaleUtils,
       {
         getFirstDayOfWeek: () => moment.localeData()
-          .firstDayOfWeek()
+          .firstDayOfWeek(),
       },
     );
 
@@ -212,7 +212,6 @@ export default class DateInput extends React.Component {
 
   handleInputBlur = () => {
     this.prettifyInputDate();
-    this.setState({ showOverlay: false });
   };
 
   /**
@@ -268,6 +267,37 @@ export default class DateInput extends React.Component {
     }, () => {
       this.props.onChange(DateInput.getDate(momentDate, FORMATS.UTC, dateFormat));
     });
+  };
+
+  /**
+   * Handles certain key presses and things that cannot be done using onBlur
+   * handler
+   * @param e
+   */
+  handleKeyDown = (e) => {
+    const val = this.input.value;
+    switch (e.keyCode) {
+      case 9: // tab
+      case 27: // esc
+        this.setState({ showOverlay: false });
+        break;
+      case 37: // arrow left
+      case 38: // arrow up
+      case 39: // arrow right
+      case 40: // arrow down
+        // In @opuscapita/react-grid we want to close the overlay, if all the text in
+        // input is selected and arrow key is pressed. If someone knows how to implement
+        // a proper onBlur handler that will work seamlessly with the calendar overlay,
+        // please do so.
+        if (val === val.substring(this.input.selectionStart, this.input.selectionEnd)) {
+          this.setState({ showOverlay: false }, () => {
+            this.input.blur();
+          });
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   /**
@@ -380,6 +410,7 @@ export default class DateInput extends React.Component {
             onChange={this.handleInputChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
+            onKeyDown={this.handleKeyDown}
           />
         </FormGroup>
         {this.state.showOverlay &&
