@@ -3,7 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
-* Fixed: Calendar overlay now closes on input blur.
+* Fixed onBlur handler
 
 ## 3.2.4
 * Changed locale default en_GB -> en-GB

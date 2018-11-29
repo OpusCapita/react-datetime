@@ -122,6 +122,10 @@ export default class DateInput extends React.Component {
 
     this.input = null;
     this.dayPicker = null;
+
+    // Used in onBlur handler to determine whether or not blur happened because of a click
+    // on the overlay
+    this.mouseClickedOnContainer = false;
   }
 
   componentWillUnmount() {
@@ -212,6 +216,15 @@ export default class DateInput extends React.Component {
 
   handleInputBlur = () => {
     this.prettifyInputDate();
+
+    // We want to close the overlay on blur, unless it was caused by a click on the calendar
+    // overlay
+    if (!this.mouseClickedOnContainer) {
+      this.setState({
+        showOverlay: false,
+      });
+    }
+    this.mouseClickedOnContainer = false;
   };
 
   /**
@@ -269,36 +282,6 @@ export default class DateInput extends React.Component {
     });
   };
 
-  /**
-   * Handles certain key presses and things that cannot be done using onBlur
-   * handler
-   * @param e
-   */
-  handleKeyDown = (e) => {
-    const val = this.input.value;
-    switch (e.keyCode) {
-      case 9: // tab
-      case 27: // esc
-        this.setState({ showOverlay: false });
-        break;
-      case 37: // arrow left
-      case 38: // arrow up
-      case 39: // arrow right
-      case 40: // arrow down
-        // In @opuscapita/react-grid we want to close the overlay, if all the text in
-        // input is selected and arrow key is pressed. If someone knows how to implement
-        // a proper onBlur handler that will work seamlessly with the calendar overlay,
-        // please do so.
-        if (val === val.substring(this.input.selectionStart, this.input.selectionEnd)) {
-          this.setState({ showOverlay: false }, () => {
-            this.input.blur();
-          });
-        }
-        break;
-      default:
-        break;
-    }
-  };
 
   /**
    * Handles year-month picker (select boxes) change
@@ -320,6 +303,11 @@ export default class DateInput extends React.Component {
     });
   };
 
+  onCalendar = (e) => {
+    if (this.calendarContainer.contains(e.target)) {
+      this.mouseClickedOnContainer = true;
+    }
+  };
   /**
    * Checks whether or not selected day is same as a day in calendar
    * Used by dayPicker
@@ -410,7 +398,6 @@ export default class DateInput extends React.Component {
             onChange={this.handleInputChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            onKeyDown={this.handleKeyDown}
           />
         </FormGroup>
         {this.state.showOverlay &&
@@ -420,6 +407,7 @@ export default class DateInput extends React.Component {
           ref={(el) => {
             this.calendarContainer = el;
           }}
+          onMouseDown={this.onCalendar}
         >
           <DayPicker
             {...otherProps}
