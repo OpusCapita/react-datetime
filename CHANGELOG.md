@@ -3,9 +3,11 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.2.6
 * Fixed onBlur handler
 
-## 3.2.4
+## 3.2.5
 * Changed locale default en_GB -> en-GB
 * Fixed: changing year or month from caption updated daypicker view accordingly
 * Fixed: year or month get selected from caption even if date is unselected (empty)
