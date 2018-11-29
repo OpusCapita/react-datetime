@@ -27,7 +27,7 @@ export default class ComponentView extends React.PureComponent {
     this.setState({
       date: '',
     });
-  }
+  };
 
   render() {
     return (
