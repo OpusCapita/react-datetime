@@ -47,7 +47,8 @@ export default class DateInput extends React.Component {
     locale: 'en-GB',
     onChange() {
     },
-    onDayClick: () => {},
+    onDayClick: () => {
+    },
     inputProps: {},
     inputRef() {
     },
@@ -113,11 +114,18 @@ export default class DateInput extends React.Component {
 
     this.localeUtils = Object.assign(
       LocaleUtils,
-      { getFirstDayOfWeek: () => moment.localeData().firstDayOfWeek() },
+      {
+        getFirstDayOfWeek: () => moment.localeData()
+          .firstDayOfWeek(),
+      },
     );
 
     this.input = null;
     this.dayPicker = null;
+
+    // Used in onBlur handler to determine whether or not blur happened because of a click
+    // on the overlay
+    this.mouseClickedOnContainer = false;
   }
 
   componentWillUnmount() {
@@ -144,7 +152,8 @@ export default class DateInput extends React.Component {
    * Returns the first of the week based on locale (used by DayPicker)
    * @returns {number}
    */
-  getFirstDayOfWeek = () => moment.localeData(this.props.locale).firstDayOfWeek();
+  getFirstDayOfWeek = () => moment.localeData(this.props.locale)
+    .firstDayOfWeek();
 
   /**
    * Handles input focus event. Shows an overlay and adds an click event listener to the document
@@ -189,7 +198,8 @@ export default class DateInput extends React.Component {
 
     this.setState({ inputDate });
     // This fires only if the new date is valid in given format
-    if (moment.utc(inputDate, dateFormat).isValid() && this.isValidFormat(inputDate)) {
+    if (moment.utc(inputDate, dateFormat)
+      .isValid() && this.isValidFormat(inputDate)) {
       this.setState({
         selectedDay: DateInput.getDate(inputDate, FORMATS.DATE_OBJECT, dateFormat),
       }, () => {
@@ -206,7 +216,16 @@ export default class DateInput extends React.Component {
 
   handleInputBlur = () => {
     this.prettifyInputDate();
-  }
+
+    // We want to close the overlay on blur, unless it was caused by a click on the calendar
+    // overlay
+    if (!this.mouseClickedOnContainer) {
+      this.setState({
+        showOverlay: false,
+      });
+    }
+    this.mouseClickedOnContainer = false;
+  };
 
   /**
    * Handles dayPicker click
@@ -219,7 +238,8 @@ export default class DateInput extends React.Component {
     const momentDate = moment.utc(day);
 
     let timeAdjustedDate = null;
-    const currentMomentDate = moment(value, moment.ISO_8601).utc();
+    const currentMomentDate = moment(value, moment.ISO_8601)
+      .utc();
     const currentHours = currentMomentDate.get('hour');
     const currentMinutes = currentMomentDate.get('minute');
 
@@ -262,6 +282,7 @@ export default class DateInput extends React.Component {
     });
   };
 
+
   /**
    * Handles year-month picker (select boxes) change
    * @param date
@@ -270,7 +291,8 @@ export default class DateInput extends React.Component {
     const { value, dateFormat } = this.props;
     const momentDate = value ? moment.utc(value, moment.ISO_8601) : moment.utc();
 
-    momentDate.year(val.getFullYear()).month(val.getMonth());
+    momentDate.year(val.getFullYear())
+      .month(val.getMonth());
 
     this.setState({
       inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
@@ -279,6 +301,16 @@ export default class DateInput extends React.Component {
     }, () => {
       this.props.onChange(DateInput.getDate(momentDate, FORMATS.UTC, dateFormat));
     });
+  };
+
+  /**
+   * Handles a click on the overlay
+   * @param e
+   */
+  handleOnOverlayMouseDown = (e) => {
+    if (this.calendarContainer.contains(e.target)) {
+      this.mouseClickedOnContainer = true;
+    }
   };
 
   /**
@@ -306,7 +338,7 @@ export default class DateInput extends React.Component {
     this.setState({
       inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
     });
-  }
+  };
 
   /**
    * Renders select boxes above the calendar
@@ -380,6 +412,7 @@ export default class DateInput extends React.Component {
           ref={(el) => {
             this.calendarContainer = el;
           }}
+          onMouseDown={this.handleOnOverlayMouseDown}
         >
           <DayPicker
             {...otherProps}
