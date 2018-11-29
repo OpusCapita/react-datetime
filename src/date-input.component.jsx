@@ -303,11 +303,16 @@ export default class DateInput extends React.Component {
     });
   };
 
-  onCalendar = (e) => {
+  /**
+   * Handles a click on the overlay
+   * @param e
+   */
+  handleOnOverlayMouseDown = (e) => {
     if (this.calendarContainer.contains(e.target)) {
       this.mouseClickedOnContainer = true;
     }
   };
+
   /**
    * Checks whether or not selected day is same as a day in calendar
    * Used by dayPicker
@@ -407,7 +412,7 @@ export default class DateInput extends React.Component {
           ref={(el) => {
             this.calendarContainer = el;
           }}
-          onMouseDown={this.onCalendar}
+          onMouseDown={this.handleOnOverlayMouseDown}
         >
           <DayPicker
             {...otherProps}
