@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Updated npm packages
 
 ## 3.2.6
 * Fixed onBlur handler
