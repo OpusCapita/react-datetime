@@ -107,7 +107,6 @@
   },
   "dependencies": {
     "react-day-picker": "7.2.4",
-    "react-icons": "2.2.7",
     "react-tether": "1.0.4"
   },
   "repository": {

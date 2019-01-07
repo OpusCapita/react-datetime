@@ -22,6 +22,7 @@ const FORMATS = {
 
 export default class DateInput extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
     onDayClick: PropTypes.func,
@@ -42,6 +43,7 @@ export default class DateInput extends React.Component {
   };
 
   static defaultProps = {
+    className: '',
     value: '',
     dateFormat: 'L',
     locale: 'en-GB',
@@ -357,6 +359,7 @@ export default class DateInput extends React.Component {
     const classPrefix = 'oc-datetime';
     /* eslint-disable no-unused-vars */
     const {
+      className,
       locale,
       time,
       value,
@@ -388,7 +391,7 @@ export default class DateInput extends React.Component {
             to: 'window',
             attachment: 'together',
           }]}
-        className={`${classPrefix}`}
+        className={`${classPrefix} ${className}`}
       >
         <FormGroup>
           <FormControl
