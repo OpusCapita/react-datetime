@@ -4,6 +4,7 @@
 
   $default-calendar-font-color: #67707c;
   $background-gray: lighten($oc-color-gray, 15%);
+  z-index: 1;
 
   &-calendar {
     background-color: $oc-color-white;
