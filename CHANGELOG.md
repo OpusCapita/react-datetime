@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 3.2.9
+* .oc-datetime z-index set to 1
+
 ## 3.2.8
 * Added class attribute
 
