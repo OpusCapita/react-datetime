@@ -402,6 +402,7 @@ export default class DateInput extends React.Component {
             }}
             value={this.state.inputDate}
             disabled={disabled}
+            autoComplete="off"
             {...inputProps}
             onChange={this.handleInputChange}
             onFocus={this.handleInputFocus}

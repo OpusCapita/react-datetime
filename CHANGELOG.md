@@ -4,6 +4,10 @@
 
 ## <next>
 
+## 3.2.10
+* Added autocomplete="off" to input to prevent auto complete popup to block picker element
+* Upgraded some packages
+
 ## 3.2.9
 * .oc-datetime z-index set to 1
 
