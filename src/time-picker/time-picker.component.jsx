@@ -72,7 +72,11 @@ export default class TimePicker extends React.Component {
   render() {
     return (
       <div className="oc-time-picker-container">
-        <FormControl name="hour" componentClass="select" value={this.props.time.hour} onChange={this.onChange}
+        <FormControl
+          name="hour"
+          componentClass="select"
+          value={this.props.time.hour}
+          onChange={this.onChange}
           disabled={this.props.disabled}
         >
           {this.hours.map(hour => (
@@ -85,7 +89,11 @@ export default class TimePicker extends React.Component {
           ))}
         </FormControl>
 
-        <FormControl name="minute" componentClass="select" value={this.props.time.minute} onChange={this.onChange}
+        <FormControl
+          name="minute"
+          componentClass="select"
+          value={this.props.time.minute}
+          onChange={this.onChange}
           disabled={this.props.disabled}
         >
           {this.minutes.map(minute => (

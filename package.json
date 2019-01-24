@@ -1,7 +1,7 @@
 {
   "author": "OpusCapita (www.opuscapita.com)",
   "name": "@opuscapita/react-datetime",
-  "version": "3.2.10",
+  "version": "3.3.10",
   "private": false,
   "license": "MIT",
   "description": "React date time picker/input component",
