@@ -11,6 +11,7 @@ export default class TimePicker extends React.Component {
       minute: PropTypes.number,
     }),
     minutesInterval: PropTypes.number,
+    disabled: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -19,6 +20,7 @@ export default class TimePicker extends React.Component {
       minute: 0,
     },
     minutesInterval: 5,
+    disabled: false,
   };
 
   constructor(props) {
@@ -70,7 +72,13 @@ export default class TimePicker extends React.Component {
   render() {
     return (
       <div className="oc-time-picker-container">
-        <FormControl name="hour" componentClass="select" value={this.props.time.hour} onChange={this.onChange}>
+        <FormControl
+          name="hour"
+          componentClass="select"
+          value={this.props.time.hour}
+          onChange={this.onChange}
+          disabled={this.props.disabled}
+        >
           {this.hours.map(hour => (
             <option
               key={`hour-${hour}`}
@@ -81,7 +89,13 @@ export default class TimePicker extends React.Component {
           ))}
         </FormControl>
 
-        <FormControl name="minute" componentClass="select" value={this.props.time.minute} onChange={this.onChange}>
+        <FormControl
+          name="minute"
+          componentClass="select"
+          value={this.props.time.minute}
+          onChange={this.onChange}
+          disabled={this.props.disabled}
+        >
           {this.minutes.map(minute => (
             <option
               key={`minute-${minute}`}
