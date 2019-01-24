@@ -2,7 +2,7 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
-## <next>
+## 3.2.11
 * Make a possibility to disable a time picker via passing disabled props from parent component 
 
 ## 3.2.10
