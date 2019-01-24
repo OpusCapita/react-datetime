@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Make a possibility to disable a time picker via passing disabled props from parent component 
 
 ## 3.2.10
 * Added autocomplete="off" to input to prevent auto complete popup to block picker element
