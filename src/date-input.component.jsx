@@ -11,6 +11,7 @@ import 'react-day-picker/lib/style.css';
 // App imports
 import TimePicker from './time-picker/time-picker.component';
 import YearMonthPicker from './year-month-picker/year-month-picker.component';
+import Navbar from './navbar/navbar.component';
 import './date-input.scss';
 
 // Date formats used by the component (mainly by the getDate method)
@@ -430,6 +431,7 @@ export default class DateInput extends React.Component {
             firstDayOfWeek={this.getFirstDayOfWeek()}
             locale={locale}
             captionElement={this.renderCaptionElement}
+            navbarElement={Navbar}
             onDayClick={this.handleDayClick}
           />
           {time &&
