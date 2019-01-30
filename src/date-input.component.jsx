@@ -410,7 +410,7 @@ export default class DateInput extends React.Component {
             onBlur={this.handleInputBlur}
           />
         </FormGroup>
-        { /* this.state.showOverlay && */ true &&
+        {this.state.showOverlay &&
         <div
           role="presentation"
           className={`${classPrefix}-calendar`}
