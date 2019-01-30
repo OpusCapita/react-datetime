@@ -2,6 +2,9 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
+## 3.2.12
+* Custom Navbar element to remove base64 encoded png arrows
+
 ## 3.2.11
 * Make a possibility to disable a time picker via passing disabled props from parent component 
 
