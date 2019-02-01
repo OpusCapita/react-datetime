@@ -1,10 +1,18 @@
 @import '~@opuscapita/oc-cm-common-styles/styles/colors';
 
 .oc-datetime {
-
   $default-calendar-font-color: #67707c;
+  $input-height: 34px;
   $background-gray: lighten($oc-color-gray, 15%);
   z-index: 1;
+
+  &-input-container {
+    position: relative;
+
+    input {
+      height: $input-height;
+    }
+  }
 
   &-calendar {
     background-color: $oc-color-white;
@@ -16,6 +24,33 @@
     .oc-time-picker-container {
       background: $background-gray;
       margin-top: -1rem;
+    }
+  }
+
+  &-clear-value {
+    position: absolute;
+    right: 0;
+    top: 1px;
+    height: calc(#{$input-height} - 2px);
+    width: 32px;
+    border: none;
+    background: transparent;
+
+    span {
+      background: $oc-color-white;
+      display: block;
+      color: $oc-color-button-normal;
+    }
+
+    &:hover {
+      span {
+        opacity: 0.5;
+      }
+    }
+
+    &:focus {
+      // Disables yellow outline when focused
+      box-shadow: none;
     }
   }
 
