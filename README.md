@@ -36,6 +36,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | time            | boolean                 | false         | Time picker on/off. Prefer DateTime component if possible                       |
 | minutesInterval | number                  | 5             | Minutes interval for the timepicker                                             |
 | showOverlay     | boolean                 | false         | Show overlay                                                                    |
+| showClearValue  | boolean                 | true          | Show "clear value" button                                                       |
 | showWeekNumber  | boolean                 | true          | Show week number in calendar                                                    |
 | selectedDays    | array, object, function | null          | http://react-day-picker.js.org/api/DayPicker#selectedDays                       |
 

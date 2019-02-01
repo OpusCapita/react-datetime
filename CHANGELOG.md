@@ -2,6 +2,9 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
+## <next>
+* Added "clear value" button next to the input field. Prop `showClearValue` is `true` by default
+
 ## 3.2.12
 * Custom Navbar element to remove base64 encoded png arrows
 

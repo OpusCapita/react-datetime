@@ -21,6 +21,8 @@ const FORMATS = {
   DATE_OBJECT: 'DATE_OBJECT',
 };
 
+const classPrefix = 'oc-datetime';
+
 export default class DateInput extends React.Component {
   static propTypes = {
     className: PropTypes.string,
@@ -39,6 +41,7 @@ export default class DateInput extends React.Component {
     ]),
     showOverlay: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
+    showClearValue: PropTypes.bool,
     time: PropTypes.bool,
     minutesInterval: PropTypes.number,
   };
@@ -59,6 +62,7 @@ export default class DateInput extends React.Component {
     selectedDays: null,
     showOverlay: false,
     showWeekNumbers: true,
+    showClearValue: true,
     time: false,
     minutesInterval: 5,
   };
@@ -317,6 +321,15 @@ export default class DateInput extends React.Component {
   };
 
   /**
+   * Clears input value
+   */
+  handleClearClick = () => {
+    const { onChange } = this.props;
+    if (!onChange) throw new TypeError('react-datetime: onChange callback is not set');
+    this.props.onChange('');
+  };
+
+  /**
    * Checks whether or not selected day is same as a day in calendar
    * Used by dayPicker
    * @param day {date}
@@ -356,8 +369,17 @@ export default class DateInput extends React.Component {
     />
   );
 
+  renderClearValueButton = () => (
+    <button
+      type="button"
+      className={`${classPrefix}-clear-value`}
+      onClick={this.handleClearClick}
+    >
+      <span>x</span>
+    </button>
+  );
+
   render() {
-    const classPrefix = 'oc-datetime';
     /* eslint-disable no-unused-vars */
     const {
       className,
@@ -370,6 +392,7 @@ export default class DateInput extends React.Component {
       selectedDays,
       showWeekNumbers,
       minutesInterval,
+      showClearValue,
       ...otherProps
     } = this.props;
     const momentDate = moment.utc(value, moment.ISO_8601);
@@ -394,7 +417,7 @@ export default class DateInput extends React.Component {
           }]}
         className={`${classPrefix} ${className}`}
       >
-        <FormGroup>
+        <FormGroup className={`${classPrefix}-input-container`}>
           <FormControl
             type="text"
             inputRef={(el) => {
@@ -409,7 +432,9 @@ export default class DateInput extends React.Component {
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
           />
+          {showClearValue && this.renderClearValueButton()}
         </FormGroup>
+
         {this.state.showOverlay &&
         <div
           role="presentation"
