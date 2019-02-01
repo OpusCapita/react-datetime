@@ -147,9 +147,9 @@ export default class DateInput extends React.Component {
     if (!this.calendarContainer) return;
 
     // Closes overlay if user clicks outside the calendar (and input field)
-    if (!this.calendarContainer.contains(e.target) &&
-      this.state.showOverlay &&
-      e.target !== this.input) {
+    if (!this.calendarContainer.contains(e.target)
+      && this.state.showOverlay
+      && e.target !== this.input) {
       this.closeOverlay();
       document.removeEventListener('click', this.onDocumentClick);
     }
@@ -400,8 +400,8 @@ export default class DateInput extends React.Component {
       hour: momentDate.hour(),
       minute: momentDate.minute(),
     };
-    const month = this.state.dayPickerVisibleMonth ||
-      ((typeof this.state.selectedDay === 'string') ? undefined : this.state.selectedDay);
+    const month = this.state.dayPickerVisibleMonth
+      || ((typeof this.state.selectedDay === 'string') ? undefined : this.state.selectedDay);
 
     return (
       <TetherComponent
@@ -435,7 +435,8 @@ export default class DateInput extends React.Component {
           {showClearValue && this.renderClearValueButton()}
         </FormGroup>
 
-        {this.state.showOverlay &&
+        {this.state.showOverlay
+        && (
         <div
           role="presentation"
           className={`${classPrefix}-calendar`}
@@ -459,13 +460,16 @@ export default class DateInput extends React.Component {
             navbarElement={Navbar}
             onDayClick={this.handleDayClick}
           />
-          {time &&
+          {time
+          && (
           <TimePicker
             onChange={this.handleTimePickerChange}
             time={timeObj}
             minutesInterval={minutesInterval}
-          />}
+          />
+          )}
         </div>
+        )
         }
       </TetherComponent>
     );

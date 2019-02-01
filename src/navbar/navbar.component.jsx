@@ -30,10 +30,10 @@ export default class Navbar extends Component {
 
   shouldComponentUpdate(nextProps) {
     return (
-      nextProps.labels !== this.props.labels ||
-      nextProps.dir !== this.props.dir ||
-      this.props.showPreviousButton !== nextProps.showPreviousButton ||
-      this.props.showNextButton !== nextProps.showNextButton
+      nextProps.labels !== this.props.labels
+      || nextProps.dir !== this.props.dir
+      || this.props.showPreviousButton !== nextProps.showPreviousButton
+      || this.props.showNextButton !== nextProps.showNextButton
     );
   }
 

@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.3.0
 * Added "clear value" button next to the input field. Prop `showClearValue` is `true` by default
 
 ## 3.2.12
