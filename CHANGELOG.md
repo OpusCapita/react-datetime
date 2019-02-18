@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 3.3.1
+* Hide clear button when value is not present
+
 ## 3.3.0
 * Added "clear value" button next to the input field. Prop `showClearValue` is `true` by default
 
