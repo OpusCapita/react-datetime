@@ -432,7 +432,7 @@ export default class DateInput extends React.Component {
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
           />
-          {showClearValue && this.renderClearValueButton()}
+          {showClearValue && value && this.renderClearValueButton()}
         </FormGroup>
 
         {this.state.showOverlay
