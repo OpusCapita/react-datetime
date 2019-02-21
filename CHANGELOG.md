@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 3.3.2
+* "clear value" button disabled if input is disabled
+
 ## 3.3.1
 * Hide clear button when value is not present
 
