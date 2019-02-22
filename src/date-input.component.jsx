@@ -372,8 +372,10 @@ export default class DateInput extends React.Component {
   renderClearValueButton = () => (
     <button
       type="button"
-      className={`${classPrefix}-clear-value`}
+      className={this.props.disabled ?
+        `${classPrefix}-clear-value disabled` : `${classPrefix}-clear-value`}
       onClick={this.handleClearClick}
+      disabled={this.props.disabled}
     >
       <span>x</span>
     </button>
