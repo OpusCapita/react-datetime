@@ -52,6 +52,15 @@
       // Disables yellow outline when focused
       box-shadow: none;
     }
+
+    &.disabled {
+      span {
+        background: lighten($oc-color-gray, 15%);
+        display: block;
+        opacity: 1;
+        color: $oc-color-button-normal;
+      }
+    }
   }
 
   // Overriding day picker styles
