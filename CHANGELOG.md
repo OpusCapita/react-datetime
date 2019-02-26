@@ -4,6 +4,65 @@
 
 ## <next>
 
+## 3.3.2
+* "clear value" button disabled if input is disabled
+
+## 3.3.1
+* Hide clear button when value is not present
+
+## 3.3.0
+* Added "clear value" button next to the input field. Prop `showClearValue` is `true` by default
+
+## 3.2.12
+* Custom Navbar element to remove base64 encoded png arrows
+
+## 3.2.11
+* Make a possibility to disable a time picker via passing disabled props from parent component 
+
+## 3.2.10
+* Added autocomplete="off" to input to prevent auto complete popup to block picker element
+* Upgraded some packages
+
+## 3.2.9
+* .oc-datetime z-index set to 1
+
+## 3.2.8
+* Added class attribute
+
+## 3.2.7
+* Updated npm packages
+
+## 3.2.6
+* Fixed onBlur handler
+
+## 3.2.5
+* Changed locale default en_GB -> en-GB
+* Fixed: changing year or month from caption updated daypicker view accordingly
+* Fixed: year or month get selected from caption even if date is unselected (empty)
+
+## 3.2.3
+* Fixed month initialization
+
+## 3.2.2
+* Added showOverlay prop
+
+## 3.2.1
+* Added selectedDays prop
+
+## 3.2.0
+* Fixed an issue #21: because of default first day of week, default locale is changed to en_GB
+* Added onDayClick prop
+
+## 3.1.1
+* Fixed an issue: Changing year or month in "day picker" doesn't affect the selected date
+
+## 3.1.0
+* Fixed an issue: Typing invalid value clears date input
+* Added date prettifying on input blurring
+
+## 3.0.1
+* Added OpusCapita brand colors.
+
 ## 3.0.0
 * Changed React version to 16.3. Fixed methods related to a new component lifecycle
 * Fixed handling of empty value of 'value' property
