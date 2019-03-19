@@ -472,6 +472,7 @@ export default class DateInput extends React.Component {
                 onChange={this.handleTimePickerChange}
                 time={timeObj}
                 minutesInterval={minutesInterval}
+                id={id}
               />
             )}
           </div>
