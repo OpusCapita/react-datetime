@@ -25,6 +25,7 @@ const classPrefix = 'oc-datetime';
 
 export default class DateInput extends React.Component {
   static propTypes = {
+    id: PropTypes.string,
     className: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
@@ -47,6 +48,7 @@ export default class DateInput extends React.Component {
   };
 
   static defaultProps = {
+    id: undefined,
     className: '',
     value: '',
     dateFormat: 'L',
@@ -395,6 +397,7 @@ export default class DateInput extends React.Component {
       showWeekNumbers,
       minutesInterval,
       showClearValue,
+      id,
       ...otherProps
     } = this.props;
     const momentDate = moment.utc(value, moment.ISO_8601);
@@ -422,6 +425,7 @@ export default class DateInput extends React.Component {
         <FormGroup className={`${classPrefix}-input-container`}>
           <FormControl
             type="text"
+            id={id}
             inputRef={(el) => {
               this.input = el;
               inputRef(el);
@@ -439,38 +443,39 @@ export default class DateInput extends React.Component {
 
         {this.state.showOverlay
         && (
-        <div
-          role="presentation"
-          className={`${classPrefix}-calendar`}
-          ref={(el) => {
-            this.calendarContainer = el;
-          }}
-          onMouseDown={this.handleOnOverlayMouseDown}
-        >
-          <DayPicker
-            {...otherProps}
+          <div
+            role="presentation"
+            className={`${classPrefix}-calendar`}
             ref={(el) => {
-              this.dayPicker = el;
+              this.calendarContainer = el;
             }}
-            selectedDays={selectedDays || this.isSameDay}
-            localeUtils={this.localeUtils}
-            month={month}
-            showWeekNumbers={showWeekNumbers}
-            firstDayOfWeek={this.getFirstDayOfWeek()}
-            locale={locale}
-            captionElement={this.renderCaptionElement}
-            navbarElement={Navbar}
-            onDayClick={this.handleDayClick}
-          />
-          {time
-          && (
-          <TimePicker
-            onChange={this.handleTimePickerChange}
-            time={timeObj}
-            minutesInterval={minutesInterval}
-          />
-          )}
-        </div>
+            onMouseDown={this.handleOnOverlayMouseDown}
+          >
+            <DayPicker
+              {...otherProps}
+              ref={(el) => {
+                this.dayPicker = el;
+              }}
+              selectedDays={selectedDays || this.isSameDay}
+              localeUtils={this.localeUtils}
+              month={month}
+              showWeekNumbers={showWeekNumbers}
+              firstDayOfWeek={this.getFirstDayOfWeek()}
+              locale={locale}
+              captionElement={this.renderCaptionElement}
+              navbarElement={Navbar}
+              onDayClick={this.handleDayClick}
+            />
+            {time
+            && (
+              <TimePicker
+                onChange={this.handleTimePickerChange}
+                time={timeObj}
+                minutesInterval={minutesInterval}
+                id={id}
+              />
+            )}
+          </div>
         )
         }
       </TetherComponent>

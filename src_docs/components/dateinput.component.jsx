@@ -37,6 +37,7 @@ export default class ComponentView extends React.PureComponent {
           disabledDays={{ daysOfWeek: [0, 6] }}
           value={this.state.date}
           onChange={this.handleDateChange}
+          id="date-input"
         />
         <p>Value: <code>{this.state.date || 'null'}</code></p>
         <button onClick={this.handleButtonClick}>Clear value</button>

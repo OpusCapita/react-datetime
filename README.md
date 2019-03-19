@@ -26,6 +26,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | --------------- | ----------------------- | ------------- | ------------------------------------------------------------------------------- |
 | className       | string                  | ''            | The class attribute of the element                                              |
 | value           | string                  | ''            | Current date value                                                              |
+| id              | string                  | ''            | Field id                                                                        |
 | onChange        | function                |               | onChange callback returns new date string                                       |
 | onDayClick      | function                |               | onDayClick callback http://react-day-picker.js.org/api/DayPicker#onDayClick     |
 | locale          | string                  | 'en'          | Locale                                                                          |

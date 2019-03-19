@@ -24,6 +24,7 @@ export default class ComponentView extends React.PureComponent {
           onChange={this.handleDateChange}
           time
           locale="fi"
+          id="date-time-input"
         />
         <p>Value: <code>{this.state.date || 'null'}</code></p>
       </div>

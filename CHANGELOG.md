@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added an ID prop
 
 ## 3.3.2
 * "clear value" button disabled if input is disabled

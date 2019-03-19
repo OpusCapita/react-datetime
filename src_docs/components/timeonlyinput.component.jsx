@@ -26,6 +26,7 @@ export default class ComponentView extends React.PureComponent {
           time={this.state.time}
           onChange={this.handleTimeChange}
           minutesInterval={2}
+          id="time-input"
         />
         <p>Value: <code>{this.state.time.hour}:{this.state.time.minute}</code></p>
       </div>
