@@ -2,7 +2,7 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
-## <next>
+## 3.4.0
 * Added possibility to have own onChange callbacks for date input field and datepicker.
 * Added onBlur callback call for date input field
 
