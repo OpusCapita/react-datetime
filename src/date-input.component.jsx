@@ -80,6 +80,8 @@ export default class DateInput extends React.Component {
     return null;
   }
 
+  static removeInvisibleChars = str => str.replace(/\u200E/g, '');
+
   /**
    * Converts given date into wanted type (string/date object)
    * @param date - {string, moment object}
@@ -90,13 +92,12 @@ export default class DateInput extends React.Component {
    */
   static getDate(date, type, dateFormat) {
     const momentDate = typeof date === 'string' ? moment.utc(date, dateFormat) : date;
-    const removeInvisibleChars = str => str.replace(/\u200E/g, '');
     if (!momentDate.isValid() || !date) return '';
     switch (type) {
       case FORMATS.PRETTY_DATE:
-        return removeInvisibleChars(momentDate.format(dateFormat));
+        return DateInput.removeInvisibleChars(momentDate.format(dateFormat));
       case FORMATS.UTC:
-        return removeInvisibleChars(momentDate.toISOString());
+        return DateInput.removeInvisibleChars(momentDate.toISOString());
       case FORMATS.DATE_OBJECT:
       default:
         return momentDate.toDate();
@@ -213,15 +214,19 @@ export default class DateInput extends React.Component {
         // If dayPicker is open, we will show the correct month
         if (this.dayPicker) this.dayPicker.showMonth(this.state.selectedDay);
       });
-      onChange(DateInput.getDate(inputDate, FORMATS.UTC, dateFormat));
-      if (inputProps.onChange) inputProps.onChange(e);
+      if (inputProps.onChange) {
+        inputProps.onChange(DateInput.removeInvisibleChars(inputDate));
+      } else {
+        onChange(DateInput.getDate(inputDate, FORMATS.UTC, dateFormat));
+      }
     } else {
       // If the value is invalid we reset the model value
       onChange(null);
     }
   };
 
-  handleInputBlur = () => {
+  handleInputBlur = (e) => {
+    const { inputProps: { onBlur } } = this.props;
     this.prettifyInputDate();
 
     // We want to close the overlay on blur, unless it was caused by a click on the calendar
@@ -232,6 +237,7 @@ export default class DateInput extends React.Component {
       });
     }
     this.mouseClickedOnContainer = false;
+    if (onBlur) onBlur(e);
   };
 
   /**

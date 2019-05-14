@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added possibility to have own onChange callbacks for date input field and datepicker.
+* Added onBlur callback call for date input field
 
 ## 3.3.2
 * "clear value" button disabled if input is disabled
@@ -17,7 +19,7 @@
 * Custom Navbar element to remove base64 encoded png arrows
 
 ## 3.2.11
-* Make a possibility to disable a time picker via passing disabled props from parent component 
+* Make a possibility to disable a time picker via passing disabled props from parent component
 
 ## 3.2.10
 * Added autocomplete="off" to input to prevent auto complete popup to block picker element
