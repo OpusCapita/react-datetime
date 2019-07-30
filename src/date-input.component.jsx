@@ -39,6 +39,11 @@ export default class DateInput extends React.Component {
       PropTypes.func,
       PropTypes.array,
     ]),
+    disabledDays: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+      PropTypes.array,
+    ]),
     showOverlay: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     showClearValue: PropTypes.bool,
@@ -60,6 +65,7 @@ export default class DateInput extends React.Component {
     },
     disabled: false,
     selectedDays: null,
+    disabledDays: null,
     showOverlay: false,
     showWeekNumbers: true,
     showClearValue: true,
@@ -401,6 +407,7 @@ export default class DateInput extends React.Component {
       showWeekNumbers,
       minutesInterval,
       showClearValue,
+      disabledDays,
       ...otherProps
     } = this.props;
     const momentDate = moment.utc(value, moment.ISO_8601);
@@ -458,6 +465,7 @@ export default class DateInput extends React.Component {
             ref={(el) => {
               this.dayPicker = el;
             }}
+            disabledDays={disabledDays}
             selectedDays={selectedDays || this.isSameDay}
             localeUtils={this.localeUtils}
             month={month}

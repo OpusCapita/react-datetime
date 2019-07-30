@@ -39,6 +39,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | showClearValue  | boolean                 | true          | Show "clear value" button                                                       |
 | showWeekNumber  | boolean                 | true          | Show week number in calendar                                                    |
 | selectedDays    | array, object, function | null          | http://react-day-picker.js.org/api/DayPicker#selectedDays                       |
+| disabledDays    | array, object, function | null          | http://react-day-picker.js.org/api/DayPicker#disabledDays                       |
 
 ### Code example
 
