@@ -2,6 +2,9 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
+## <next>
+* Popup will now open over the input field, if it has no space to open below it.
+
 ## 3.5.0
 * Added `disabledDays` prop
 
