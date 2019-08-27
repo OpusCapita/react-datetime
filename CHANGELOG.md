@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.5.1
 * Popup will now open over the input field, if it has no space to open below it.
 
 ## 3.5.0
