@@ -286,7 +286,9 @@ export default class DateInput extends React.Component {
   handleDayClick = (day, modifiers = {}) => {
     if (modifiers.disabled) return;
 
-    const { dateFormat, formatDate, value, time } = this.props;
+    const {
+      dateFormat, formatDate, value, time,
+    } = this.props;
     const momentDate = moment.utc(day);
 
     let timeAdjustedDate = null;
