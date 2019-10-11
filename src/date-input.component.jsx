@@ -33,6 +33,7 @@ export default class DateInput extends React.Component {
     onDayClick: PropTypes.func,
     locale: PropTypes.string,
     dateFormat: PropTypes.string,
+    formatDate: PropTypes.func,
     inputProps: PropTypes.object,
     inputRef: PropTypes.func,
     disabled: PropTypes.bool,
@@ -49,6 +50,7 @@ export default class DateInput extends React.Component {
     className: '',
     value: '',
     dateFormat: 'L',
+    formatDate: undefined,
     locale: 'en-GB',
     onChange() {},
     onDayClick: () => {},
@@ -67,11 +69,15 @@ export default class DateInput extends React.Component {
   static getDerivedStateFromProps(props, state) {
     if (!state.showOverlay && props.value !== state.lastValue) {
       const momentDate = moment.utc(props.value, moment.ISO_8601);
+      const { formatDate, value } = props;
+      const inputDate = formatDate
+        ? formatDate(value)
+        : DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat);
       return {
         lastValue: props.value,
         selectedDay: DateInput.getDate(momentDate, FORMATS.DATE_OBJECT),
         showOverlay: props.showOverlay || state.showOverlay,
-        inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat),
+        inputDate,
       };
     }
     return null;
@@ -104,8 +110,13 @@ export default class DateInput extends React.Component {
   constructor(props) {
     super(props);
 
-    const momentDate = moment.utc(props.value, moment.ISO_8601);
+    const { formatDate, value } = props;
+    const momentDate = moment.utc(value, moment.ISO_8601);
     this.onDocumentClick = this.onDocumentClick.bind(this);
+    const inputDate = formatDate
+      ? formatDate(value)
+      // inputDate: Prettified string shown in input field
+      : DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat);
 
     this.state = {
       /* eslint-disable-next-line react/no-unused-state */
@@ -113,8 +124,7 @@ export default class DateInput extends React.Component {
       showOverlay: false,
       // selectedDay: Selected day in calendar (date object)
       selectedDay: DateInput.getDate(momentDate, FORMATS.DATE_OBJECT, props.dateFormat),
-      // inputDate: Prettified string shown in input field
-      inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat),
+      inputDate,
     };
 
     this.localeUtils = Object.assign(LocaleUtils, {
@@ -276,7 +286,7 @@ export default class DateInput extends React.Component {
   handleDayClick = (day, modifiers = {}) => {
     if (modifiers.disabled) return;
 
-    const { dateFormat, value, time } = this.props;
+    const { dateFormat, formatDate, value, time } = this.props;
     const momentDate = moment.utc(day);
 
     let timeAdjustedDate = null;
@@ -293,11 +303,15 @@ export default class DateInput extends React.Component {
       timeAdjustedDate = momentDate.startOf('day');
     }
 
+    const inputDate = formatDate
+      ? formatDate(timeAdjustedDate)
+      : DateInput.getDate(timeAdjustedDate, FORMATS.PRETTY_DATE, dateFormat);
+
     this.setState(
       {
         selectedDay: day,
         showOverlay: false,
-        inputDate: DateInput.getDate(timeAdjustedDate, FORMATS.PRETTY_DATE, dateFormat),
+        inputDate,
       },
       () => {
         this.props.onChange(DateInput.getDate(timeAdjustedDate, FORMATS.UTC, dateFormat));
@@ -313,13 +327,16 @@ export default class DateInput extends React.Component {
    * @param newTime
    */
   handleTimePickerChange = (newTime) => {
-    const { dateFormat } = this.props;
+    const { dateFormat, formatDate } = this.props;
     let momentDate = moment.utc(this.props.value);
     momentDate = momentDate.hour(newTime.hour);
     momentDate = momentDate.minutes(newTime.minute);
+    const inputDate = formatDate
+      ? formatDate(momentDate)
+      : DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat);
     this.setState(
       {
-        inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
+        inputDate,
       },
       () => {
         this.props.onChange(DateInput.getDate(momentDate, FORMATS.UTC, dateFormat));
@@ -332,14 +349,17 @@ export default class DateInput extends React.Component {
    * @param date
    */
   handleYearMonthChange = (val) => {
-    const { value, dateFormat } = this.props;
+    const { value, dateFormat, formatDate } = this.props;
     const momentDate = value ? moment.utc(value, moment.ISO_8601) : moment.utc();
 
     momentDate.year(val.getFullYear()).month(val.getMonth());
+    const inputDate = formatDate
+      ? formatDate(dateFormat)
+      : DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat);
 
     this.setState(
       {
-        inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
+        inputDate,
         selectedDay: DateInput.getDate(momentDate, FORMATS.DATE_OBJECT, dateFormat),
         dayPickerVisibleMonth: val,
       },
@@ -390,11 +410,12 @@ export default class DateInput extends React.Component {
   };
 
   prettifyInputDate = () => {
-    const { value, dateFormat } = this.props;
+    const { value, dateFormat, formatDate } = this.props;
     const momentDate = moment.utc(value, moment.ISO_8601);
-    this.setState({
-      inputDate: DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat),
-    });
+    const inputDate = formatDate
+      ? formatDate(value)
+      : DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat);
+    this.setState({ inputDate });
   };
 
   /**
@@ -434,6 +455,7 @@ export default class DateInput extends React.Component {
       minutesInterval,
       showClearValue,
       disabledDays,
+      formatDate,
       ...otherProps
     } = this.props;
     const momentDate = moment.utc(value, moment.ISO_8601);
@@ -469,13 +491,14 @@ export default class DateInput extends React.Component {
             }}
             value={this.state.inputDate}
             disabled={disabled}
+            readOnly={!!formatDate}
             autoComplete="off"
             {...inputProps}
             onChange={this.handleInputChange}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
           />
-          {showClearValue && value && this.renderClearValueButton()}
+          {showClearValue && value && !formatDate && this.renderClearValueButton()}
         </FormGroup>
 
         {this.state.showOverlay && (
