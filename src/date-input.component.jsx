@@ -327,12 +327,12 @@ export default class DateInput extends React.Component {
    * @param newTime
    */
   handleTimePickerChange = (newTime) => {
-    const { dateFormat, formatDate } = this.props;
-    let momentDate = moment.utc(this.props.value);
+    const { dateFormat, formatDate, value } = this.props;
+    let momentDate = moment.utc(value);
     momentDate = momentDate.hour(newTime.hour);
     momentDate = momentDate.minutes(newTime.minute);
     const inputDate = formatDate
-      ? formatDate(momentDate)
+      ? formatDate(value)
       : DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat);
     this.setState(
       {
@@ -354,7 +354,7 @@ export default class DateInput extends React.Component {
 
     momentDate.year(val.getFullYear()).month(val.getMonth());
     const inputDate = formatDate
-      ? formatDate(dateFormat)
+      ? formatDate(value)
       : DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, dateFormat);
 
     this.setState(
@@ -498,7 +498,7 @@ export default class DateInput extends React.Component {
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
           />
-          {showClearValue && value && !formatDate && this.renderClearValueButton()}
+          {showClearValue && value && this.renderClearValueButton()}
         </FormGroup>
 
         {this.state.showOverlay && (
