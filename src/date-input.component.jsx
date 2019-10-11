@@ -67,14 +67,14 @@ export default class DateInput extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    if (!state.showOverlay && props.value !== state.lastValue) {
-      const momentDate = moment.utc(props.value, moment.ISO_8601);
-      const { formatDate, value } = props;
+    const { formatDate, value } = props;
+    if (!state.showOverlay && value !== state.lastValue) {
+      const momentDate = moment.utc(value, moment.ISO_8601);
       const inputDate = formatDate
         ? formatDate(value)
         : DateInput.getDate(momentDate, FORMATS.PRETTY_DATE, props.dateFormat);
       return {
-        lastValue: props.value,
+        lastValue: value,
         selectedDay: DateInput.getDate(momentDate, FORMATS.DATE_OBJECT),
         showOverlay: props.showOverlay || state.showOverlay,
         inputDate,
