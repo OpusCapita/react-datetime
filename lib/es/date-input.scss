@@ -12,9 +12,6 @@
     input {
       height: $input-height;
     }
-    .form-control[readonly] {
-      background-color: inherit;
-    }
   }
 
   &-calendar {
