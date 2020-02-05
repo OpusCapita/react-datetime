@@ -478,7 +478,7 @@ export default class DateInput extends React.Component {
         constraints={[
           {
             to: 'scrollParent',
-            pin: true,
+            pin: ['top'],
           },
           {
             to: 'window',
