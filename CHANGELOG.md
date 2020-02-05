@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.6.1
 * Fixed bug: if UTC offset is negative and UTC date differs from local date, the day picker shows local date selected (day before UTC date) but the date input the UTC date.
 * Fix to an IE11 specific issue where tethering was done incorrectly and datetime component was overlapping the input element.
 
