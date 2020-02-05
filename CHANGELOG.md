@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed bug: if UTC offset is negative and UTC date differs from local date, the day picker shows local date selected (day before UTC date) but the date input the UTC date.
 
 ## 3.6.0
 * Added `formatDate` prop
