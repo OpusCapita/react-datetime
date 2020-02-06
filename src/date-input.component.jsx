@@ -105,7 +105,7 @@ export default class DateInput extends React.Component {
       default:
         // UTC day might differ from local day, therefore UTC offset
         // must be discounted.
-        return new Date(momentDate.format('L'));
+        return new Date(moment(momentDate.format('L'), 'L'));
     }
   }
 
@@ -292,8 +292,7 @@ export default class DateInput extends React.Component {
       dateFormat, formatDate, value, time,
     } = this.props;
     // UTC day might differ from local date therefore UTC offset must be discounted.
-    const momentDate = moment.utc(moment(day).format('L'));
-
+    const momentDate = moment.utc(moment(day).format('L'), 'L');
     let timeAdjustedDate = null;
     const currentMomentDate = moment(value, moment.ISO_8601).utc();
     const currentHours = currentMomentDate.get('hour');
