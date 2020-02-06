@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.6.2
 * Fixed: same format 'L' must be used when formatting 'L' formatted string back to moment
 
 ## 3.6.1
