@@ -36,11 +36,12 @@ export default class TimePicker extends React.Component {
   }
 
   onChange = (e) => {
-    const oldTime = { ...this.props.time };
+    const { time, onChange } = this.props;
+    const oldTime = { ...time };
     const newTime = Object.assign(oldTime, {
       [e.target.name]: Number(e.target.value),
     });
-    this.props.onChange(newTime);
+    onChange(newTime);
   };
 
   /**
@@ -48,7 +49,7 @@ export default class TimePicker extends React.Component {
    * @param number
    * @returns number {string}
    */
-  getPaddedNumber = number => number < 10 ? `0${number}` : number; // eslint-disable-line no-confusing-arrow
+  getPaddedNumber = (number) => ((number < 10) ? `0${number}` : number);
 
 
   /**
@@ -64,27 +65,32 @@ export default class TimePicker extends React.Component {
    * Provides values for the minute select box
    */
   getMinuteListValues = () => {
-    for (let i = 0; i < 60; i += this.props.minutesInterval) {
+    const { minutesInterval } = this.props;
+    for (let i = 0; i < 60; i += minutesInterval) {
       this.minutes.push(i);
     }
   };
 
   render() {
+    const {
+      time: { minute, hour },
+      disabled,
+    } = this.props;
     return (
       <div className="oc-time-picker-container">
         <FormControl
           name="hour"
           componentClass="select"
-          value={this.props.time.hour}
+          value={hour}
           onChange={this.onChange}
-          disabled={this.props.disabled}
+          disabled={disabled}
         >
-          {this.hours.map(hour => (
+          {this.hours.map((h) => (
             <option
-              key={`hour-${hour}`}
-              value={hour}
+              key={`hour-${h}`}
+              value={h}
             >
-              {this.getPaddedNumber(hour)}
+              {this.getPaddedNumber(h)}
             </option>
           ))}
         </FormControl>
@@ -92,17 +98,18 @@ export default class TimePicker extends React.Component {
         <FormControl
           name="minute"
           componentClass="select"
-          value={this.props.time.minute}
+          value={minute}
           onChange={this.onChange}
-          disabled={this.props.disabled}
+          disabled={disabled}
         >
-          {this.minutes.map(minute => (
+          {this.minutes.map((m) => (
             <option
-              key={`minute-${minute}`}
-              value={minute}
+              key={`minute-${m}`}
+              value={m}
             >
-              {this.getPaddedNumber(minute)}
-            </option>))}
+              {this.getPaddedNumber(m)}
+            </option>
+          ))}
         </FormControl>
       </div>
     );

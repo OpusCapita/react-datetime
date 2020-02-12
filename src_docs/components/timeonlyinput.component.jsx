@@ -19,15 +19,24 @@ export default class ComponentView extends React.PureComponent {
   };
 
   render() {
+    const { time, time: { hour, minute } } = this.state;
     return (
       <div style={{ width: '250px' }}>
         <h4>TimePickerInput</h4>
         <TimePicker
-          time={this.state.time}
+          time={time}
           onChange={this.handleTimeChange}
           minutesInterval={2}
         />
-        <p>Value: <code>{this.state.time.hour}:{this.state.time.minute}</code></p>
+        <p>
+          Value:
+          {' '}
+          <code>
+            {hour}
+            :
+            {minute}
+          </code>
+        </p>
       </div>
     );
   }

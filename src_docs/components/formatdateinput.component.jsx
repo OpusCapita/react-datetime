@@ -30,19 +30,26 @@ export default class ComponentView extends React.PureComponent {
     });
   };
 
-  formatDate = date => (date ? moment.utc(date).format('MMMM Do YYYY') : '');
+  formatDate = (date) => (date ? moment.utc(date).format('MMMM Do YYYY') : '');
 
   render() {
+    const { date } = this.state;
     return (
       <div style={{ width: '250px' }}>
         <h4>FormatDateInput</h4>
         <DateInput
-          value={this.state.date}
+          value={date}
           onChange={this.handleDateChange}
           formatDate={this.formatDate}
         />
-        <p>Value: <code>{this.state.date || 'null'}</code></p>
-        <button onClick={this.handleButtonClick}>Clear value</button>
+        <p>
+          Value:
+          {' '}
+          <code>
+            {date || 'null'}
+          </code>
+        </p>
+        <button type="button" onClick={this.handleButtonClick}>Clear value</button>
       </div>
     );
   }

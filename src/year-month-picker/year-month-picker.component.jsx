@@ -40,8 +40,9 @@ export default class YearMonthPicker extends React.Component {
    * @param event
    */
   onChange = (event) => {
+    const { onChange } = this.props;
     const { year, month } = event.target.form;
-    this.props.onChange(new Date(year.value, month.value));
+    onChange(new Date(year.value, month.value));
   };
 
 
@@ -66,29 +67,32 @@ export default class YearMonthPicker extends React.Component {
   };
 
   render() {
+    const { date } = this.props;
+    const year = date && date.getFullYear ? date.getFullYear() : null;
+    const month = date && date.getMonth ? date.getMonth() : null;
     return (
       <form className="DayPicker-Caption oc-year-month-picker-container">
         <FormControl
           name="year"
           componentClass="select"
-          value={this.props.date.getFullYear()}
+          value={year}
           onChange={this.onChange}
           className="year"
         >
-          {this.years.map(year => (
-            <option key={`year-${year}`} value={year}>{year}</option>
+          {this.years.map((y) => (
+            <option key={`year-${y}`} value={y}>{y}</option>
           ))}
         </FormControl>
 
         <FormControl
           name="month"
           componentClass="select"
-          value={this.props.date.getMonth()}
+          value={month}
           onChange={this.onChange}
           className="month"
         >
-          {this.months.map((month, index) => (
-            <option key={`month-${month}`} value={index}>{month}</option>
+          {this.months.map((m, index) => (
+            <option key={`month-${m}`} value={index}>{m}</option>
           ))}
         </FormControl>
       </form>

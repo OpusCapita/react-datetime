@@ -29,38 +29,38 @@ export default class Navbar extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    const {
+      labels,
+      dir,
+      showPreviousButton,
+      showNextButton,
+    } = this.props;
     return (
-      nextProps.labels !== this.props.labels
-      || nextProps.dir !== this.props.dir
-      || this.props.showPreviousButton !== nextProps.showPreviousButton
-      || this.props.showNextButton !== nextProps.showNextButton
+      nextProps.labels !== labels
+      || nextProps.dir !== dir
+      || showPreviousButton !== nextProps.showPreviousButton
+      || showNextButton !== nextProps.showNextButton
     );
   }
 
   handleNextClick = () => {
-    if (this.props.onNextClick) {
-      this.props.onNextClick();
-    }
+    const { onNextClick } = this.props;
+    if (onNextClick) onNextClick();
   }
 
   handlePreviousClick = () => {
-    if (this.props.onPreviousClick) {
-      this.props.onPreviousClick();
-    }
+    const { onPreviousClick } = this.props;
+    if (onPreviousClick) onPreviousClick();
   }
 
   handleNextKeyDown = (e) => {
-    if (e.keyCode !== ENTER && e.keyCode !== SPACE) {
-      return;
-    }
+    if (e.keyCode !== ENTER && e.keyCode !== SPACE) return;
     e.preventDefault();
     this.handleNextClick();
   }
 
   handlePreviousKeyDown = (e) => {
-    if (e.keyCode !== ENTER && e.keyCode !== SPACE) {
-      return;
-    }
+    if (e.keyCode !== ENTER && e.keyCode !== SPACE) return;
     e.preventDefault();
     this.handlePreviousClick();
   }

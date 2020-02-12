@@ -16,16 +16,23 @@ export default class ComponentView extends React.PureComponent {
   };
 
   render() {
+    const { date } = this.state;
     return (
       <div style={{ width: '250px' }}>
         <h4>DateTimeInput (Finnish locale)</h4>
         <DateTime
-          value={this.state.date}
+          value={date}
           onChange={this.handleDateChange}
           time
           locale="fi"
         />
-        <p>Value: <code>{this.state.date || 'null'}</code></p>
+        <p>
+          Value:
+          {' '}
+          <code>
+            {date || 'null'}
+          </code>
+        </p>
       </div>
     );
   }

@@ -1,5 +1,10 @@
 import React from 'react';
-import { Panel, Grid, Row, Col } from 'react-bootstrap';
+import {
+  Panel,
+  Grid,
+  Row,
+  Col,
+} from 'react-bootstrap';
 import DateInput from '../components/dateinput.component';
 import DateTimeInput from '../components/datetimeinput.component';
 import FormatDateInput from '../components/formatdateinput.component';

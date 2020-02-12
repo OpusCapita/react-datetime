@@ -15,10 +15,11 @@ export default class DateTimeInput extends React.Component {
   };
 
   render() {
+    const { dateFormat } = this.props;
     return (
       <DateInput
         time
-        dateFormat={this.props.dateFormat}
+        dateFormat={dateFormat}
         {...this.props}
       />
     );
