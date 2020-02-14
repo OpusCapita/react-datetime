@@ -1,8 +1,11 @@
-# Changelog
+*# Changelog
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+
+## 3.7.0
+* Added `calendarType` prop which can be used to change calendar to static type instead of popup
 
 ## 3.6.2
 * Fixed: same format 'L' must be used when formatting 'L' formatted string back to moment

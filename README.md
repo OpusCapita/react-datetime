@@ -41,6 +41,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | selectedDays    | array, object, function | null       | http://react-day-picker.js.org/api/DayPicker#selectedDays                                                            |
 | disabledDays    | array, object, function | null       | http://react-day-picker.js.org/api/DayPicker#disabledDays                                                            |
 | formatDate      | function                | undefined  | If formatDate is defined, it is used to format the input date instead of dateFormat and the input date is read-only. |
+| calendarType    | enum ['popup','static'] | 'popup'    | How calendar is rendered, default popup |
 
 ### Code example
 

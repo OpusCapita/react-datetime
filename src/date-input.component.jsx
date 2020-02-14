@@ -46,6 +46,7 @@ export default class DateInput extends React.Component {
     showClearValue: PropTypes.bool,
     time: PropTypes.bool,
     minutesInterval: PropTypes.number,
+    calendarType: PropTypes.oneOf(['popup', 'static']),
   };
 
   static defaultProps = {
@@ -66,6 +67,7 @@ export default class DateInput extends React.Component {
     showClearValue: true,
     time: false,
     minutesInterval: 5,
+    calendarType: 'popup',
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -457,8 +459,41 @@ export default class DateInput extends React.Component {
     );
   }
 
-  render() {
-    /* eslint-disable no-unused-vars */
+  renderDateInput = () => {
+    const {
+      inputRef,
+      disabled,
+      formatDate,
+      inputProps,
+      showClearValue,
+      value,
+    } = this.props;
+    const {
+      inputDate,
+    } = this.state;
+    return (
+      <FormGroup className={`${classPrefix}-input-container`}>
+        <FormControl
+          type="text"
+          inputRef={(el) => {
+            this.input = el;
+            inputRef(el);
+          }}
+          value={inputDate}
+          disabled={disabled}
+          readOnly={!!formatDate}
+          autoComplete="off"
+          {...inputProps}
+          onChange={this.handleInputChange}
+          onFocus={this.handleInputFocus}
+          onBlur={this.handleInputBlur}
+        />
+        {showClearValue && value && this.renderClearValueButton()}
+      </FormGroup>
+    );
+  }
+
+  renderCalendar = () => {
     const {
       className,
       locale,
@@ -473,13 +508,12 @@ export default class DateInput extends React.Component {
       showClearValue,
       disabledDays,
       formatDate,
+      calendarType,
       ...otherProps
     } = this.props;
     const {
       dayPickerVisibleMonth,
       selectedDay,
-      inputDate,
-      showOverlay,
     } = this.state;
     const momentDate = moment.utc(value, moment.ISO_8601);
     const timeObj = {
@@ -488,76 +522,71 @@ export default class DateInput extends React.Component {
     };
     const month = dayPickerVisibleMonth
       || (typeof selectedDay === 'string' ? undefined : selectedDay);
-
     return (
-      <TetherComponent
-        attachment={this.getTetherComponentAttachmentLocation()}
-        constraints={[
-          {
+      <div
+        role="presentation"
+        className={`${classPrefix}-calendar`}
+        ref={(el) => {
+          this.calendarContainer = el;
+        }}
+        onMouseDown={this.handleOnOverlayMouseDown}
+      >
+        <DayPicker
+          {...otherProps}
+          ref={(el) => {
+            this.dayPicker = el;
+          }}
+          disabledDays={disabledDays}
+          selectedDays={selectedDays || this.isSameDay}
+          localeUtils={this.localeUtils}
+          month={month}
+          showWeekNumbers={showWeekNumbers}
+          firstDayOfWeek={this.getFirstDayOfWeek()}
+          locale={locale}
+          captionElement={this.renderCaptionElement}
+          navbarElement={Navbar}
+          onDayClick={this.handleDayClick}
+        />
+        {time && (
+          <TimePicker
+            onChange={this.handleTimePickerChange}
+            time={timeObj}
+            minutesInterval={minutesInterval}
+          />
+        )}
+      </div>
+    );
+  }
+
+  render() {
+    const { className, calendarType } = this.props;
+    const { showOverlay } = this.state;
+
+    if (calendarType === 'popup') {
+      return (
+        <TetherComponent
+          attachment={this.getTetherComponentAttachmentLocation()}
+          constraints={[{
             to: 'scrollParent',
             pin: ['top'],
-          },
-          {
+          }, {
             to: 'window',
             attachment: 'together',
-          },
-        ]}
-        className={`${classPrefix} ${className}`}
-      >
-        <FormGroup className={`${classPrefix}-input-container`}>
-          <FormControl
-            type="text"
-            inputRef={(el) => {
-              this.input = el;
-              inputRef(el);
-            }}
-            value={inputDate}
-            disabled={disabled}
-            readOnly={!!formatDate}
-            autoComplete="off"
-            {...inputProps}
-            onChange={this.handleInputChange}
-            onFocus={this.handleInputFocus}
-            onBlur={this.handleInputBlur}
-          />
-          {showClearValue && value && this.renderClearValueButton()}
-        </FormGroup>
-
-        {showOverlay && (
-          <div
-            role="presentation"
-            className={`${classPrefix}-calendar`}
-            ref={(el) => {
-              this.calendarContainer = el;
-            }}
-            onMouseDown={this.handleOnOverlayMouseDown}
-          >
-            <DayPicker
-              {...otherProps}
-              ref={(el) => {
-                this.dayPicker = el;
-              }}
-              disabledDays={disabledDays}
-              selectedDays={selectedDays || this.isSameDay}
-              localeUtils={this.localeUtils}
-              month={month}
-              showWeekNumbers={showWeekNumbers}
-              firstDayOfWeek={this.getFirstDayOfWeek()}
-              locale={locale}
-              captionElement={this.renderCaptionElement}
-              navbarElement={Navbar}
-              onDayClick={this.handleDayClick}
-            />
-            {time && (
-              <TimePicker
-                onChange={this.handleTimePickerChange}
-                time={timeObj}
-                minutesInterval={minutesInterval}
-              />
-            )}
-          </div>
-        )}
-      </TetherComponent>
+          }]}
+          className={`${classPrefix} ${className} ${classPrefix}-popup-container`}
+        >
+          {this.renderDateInput()}
+          {showOverlay && this.renderCalendar()}
+        </TetherComponent>
+      );
+    }
+    return (
+      <div>
+        {this.renderDateInput()}
+        <div className={`${classPrefix} ${className} ${classPrefix}-static-container`}>
+          {this.renderCalendar()}
+        </div>
+      </div>
     );
   }
 }
