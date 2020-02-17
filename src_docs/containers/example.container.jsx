@@ -9,6 +9,7 @@ import DateInput from '../components/dateinput.component';
 import DateTimeInput from '../components/datetimeinput.component';
 import FormatDateInput from '../components/formatdateinput.component';
 import TimeOnlyInput from '../components/timeonlyinput.component';
+import StaticDateInput from '../components/staticdateinput.component';
 
 import GithubLogo from '../images/logo-github.svg';
 
@@ -40,6 +41,9 @@ export default () => (
         </Panel>
         <Panel>
           <FormatDateInput />
+        </Panel>
+        <Panel>
+          <StaticDateInput />
         </Panel>
       </Col>
     </Row>
