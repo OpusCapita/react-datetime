@@ -6,11 +6,20 @@
   $background-gray: lighten($oc-color-gray, 15%);
   z-index: 1;
 
+  &-static-container {
+    display: flex;
+    position: relative;
+  }
+
   &-input-container {
     position: relative;
 
     input {
       height: $input-height;
+
+      &::-ms-clear {
+        display: none;
+      }
     }
     .form-control[readonly] {
       background-color: inherit;
@@ -19,15 +28,15 @@
 
   &-calendar {
     background-color: $oc-color-white;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
     border: 1px solid $oc-color-gray;
 
     .oc-time-picker-container {
       background: $background-gray;
-      margin-top: -1rem;
     }
+  }
+
+  &-popup-container &-calendar {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   }
 
   &-clear-value {
@@ -67,6 +76,10 @@
   }
 
   // Overriding day picker styles
+  .DayPicker-wrapper {
+    padding: 0;
+  }
+
   .DayPicker-Month {
     min-width: 260px;
     margin: 0;
@@ -75,6 +88,10 @@
   // Weekdays
   .DayPicker-WeekdaysRow {
     background: $background-gray;
+  }
+
+  .DayPicker-Day {
+    outline: 0;
   }
 
   // Current day
