@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 3.7.1
+* Change weeknumber colors to fix current day borders in Chrome
+
 ## 3.7.0
 * Added `calendarType` prop which can be used to change calendar to static type instead of popup
 
