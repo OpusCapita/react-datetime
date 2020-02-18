@@ -90,6 +90,12 @@
     background: $background-gray;
   }
 
+  // Weeknumbers
+  .DayPicker-WeekNumber {
+    border-right: none;
+    background: $background-gray;
+  }
+
   .DayPicker-Day {
     outline: 0;
   }
