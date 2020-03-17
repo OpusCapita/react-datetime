@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 3.7.2
+* Fix bug when pasting date string to empty DateInput caused by wrong setState callback scope
+
 ## 3.7.1
 * Change weeknumber colors to fix current day borders in Chrome
 

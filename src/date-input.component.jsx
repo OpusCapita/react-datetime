@@ -206,11 +206,11 @@ export default class DateInput extends React.Component {
    */
   handleInputFocus = (e) => {
     const { inputProps: { onFocus } } = this.props;
-    const { showOverlay, selectedDay } = this.state;
 
     this.setState({ showOverlay: true }, () => {
       // Delays the execution so that the dayPicker opens before selecting a day
       setTimeout(() => {
+        const { showOverlay, selectedDay } = this.state;
         if (!showOverlay && this.dayPicker && selectedDay) this.dayPicker.showMonth(selectedDay);
       });
     });
@@ -224,9 +224,9 @@ export default class DateInput extends React.Component {
    * @param e
    */
   closeOverlay = (e) => {
-    const { showOverlay } = this.state;
-    const { inputProps: { onBlur } } = this.props;
     this.setState({ showOverlay: false }, () => {
+      const { showOverlay } = this.state;
+      const { inputProps: { onBlur } } = this.props;
       if (showOverlay) this.input.focus();
       if (onBlur) onBlur(e);
     });
@@ -238,7 +238,6 @@ export default class DateInput extends React.Component {
    */
   handleInputChange = (e) => {
     const inputDate = e.target.value;
-    const { selectedDay } = this.state;
     const { dateFormat, inputProps, onChange } = this.props;
 
     this.setState({ inputDate });
@@ -249,6 +248,7 @@ export default class DateInput extends React.Component {
           selectedDay: DateInput.getDate(inputDate, FORMATS.DATE_OBJECT, dateFormat),
         },
         () => {
+          const { selectedDay } = this.state;
           // If dayPicker is open, we will show the correct month
           if (this.dayPicker) this.dayPicker.showMonth(selectedDay);
         },
