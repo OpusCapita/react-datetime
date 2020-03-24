@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Upgrade packages
 
 ## 3.7.2
 * Fix bug when pasting date string to empty DateInput caused by wrong setState callback scope
